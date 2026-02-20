@@ -1,0 +1,31 @@
+{
+  "baseline_timestamp_utc": "20260220T224129Z",
+  "steps": {
+    "cu_init": {
+      "total_ioctls": 333,
+      "unique_codes": 16,
+      "new_codes_vs_prev": 16,
+      "new_ioctl_records_vs_prev": 16
+    },
+    "cu_device_get": {
+      "total_ioctls": 333,
+      "unique_codes": 16,
+      "new_codes_vs_prev": 0,
+      "new_ioctl_records_vs_prev": 0
+    },
+    "cu_ctx_create": {
+      "total_ioctls": 814,
+      "unique_codes": 31,
+      "new_codes_vs_prev": 15,
+      "new_ioctl_records_vs_prev": 15
+    }
+  },
+  "checks": {
+    "delta_definition": "new request codes vs previous step (set difference), with first occurrence tagged via is_new",
+    "steps_present_expected": [
+      "cu_init",
+      "cu_device_get",
+      "cu_ctx_create"
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "step": "cu_device_get",
+  "binary": "programs/cu_device_get",
+  "runs": 3,
+  "checked": true,
+  "code_occurrence_rate": {
+    "0x00000017": 1.0,
+    "0x00000025": 1.0,
+    "0x00000027": 1.0,
+    "0x00000046": 1.0,
+    "0x0000004B": 1.0,
+    "0x30000001": 1.0,
+    "0xC00446C9": 1.0,
+    "0xC00846D6": 1.0,
+    "0xC0104629": 1.0,
+    "0xC01046CE": 1.0,
+    "0xC020462A": 1.0,
+    "0xC020462B": 1.0,
+    "0xC030462B": 1.0,
+    "0xC038464E": 1.0,
+    "0xC23046D7": 1.0,
+    "0xC90046C8": 1.0
+  },
+  "non_deterministic_codes": [],
+  "determinism_score": 1.0,
+  "per_run_unique_codes": [
+    16,
+    16,
+    16
+  ]
+}

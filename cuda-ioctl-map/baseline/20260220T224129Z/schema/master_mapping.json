@@ -154,7 +154,7 @@
             "phase": "object control",
             "confidence": "low",
             "source": "observed in cuInit trace",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -302,126 +302,6 @@
           }
         }
       ],
-      "net_new_events": 333,
-      "event_delta_vs_prev": {
-        "0x00000017": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x00000025": {
-          "prev_count": 0,
-          "cur_count": 4,
-          "delta": 4
-        },
-        "0x00000027": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x00000046": {
-          "prev_count": 0,
-          "cur_count": 4,
-          "delta": 4
-        },
-        "0x0000004B": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x30000001": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0xC00446C9": {
-          "prev_count": 0,
-          "cur_count": 12,
-          "delta": 12
-        },
-        "0xC00846D6": {
-          "prev_count": 0,
-          "cur_count": 2,
-          "delta": 2
-        },
-        "0xC0104629": {
-          "prev_count": 0,
-          "cur_count": 5,
-          "delta": 5
-        },
-        "0xC01046CE": {
-          "prev_count": 0,
-          "cur_count": 4,
-          "delta": 4
-        },
-        "0xC020462A": {
-          "prev_count": 0,
-          "cur_count": 249,
-          "delta": 249
-        },
-        "0xC020462B": {
-          "prev_count": 0,
-          "cur_count": 2,
-          "delta": 2
-        },
-        "0xC030462B": {
-          "prev_count": 0,
-          "cur_count": 37,
-          "delta": 37
-        },
-        "0xC038464E": {
-          "prev_count": 0,
-          "cur_count": 4,
-          "delta": 4
-        },
-        "0xC23046D7": {
-          "prev_count": 0,
-          "cur_count": 4,
-          "delta": 4
-        },
-        "0xC90046C8": {
-          "prev_count": 0,
-          "cur_count": 2,
-          "delta": 2
-        }
-      },
-      "confidence_summary": {
-        "high": 8,
-        "medium": 7,
-        "low": 1,
-        "none": 0
-      },
-      "reproducibility": {
-        "step": "cu_init",
-        "binary": "programs/cu_init",
-        "runs": 3,
-        "checked": true,
-        "code_occurrence_rate": {
-          "0x00000017": 1.0,
-          "0x00000025": 1.0,
-          "0x00000027": 1.0,
-          "0x00000046": 1.0,
-          "0x0000004B": 1.0,
-          "0x30000001": 1.0,
-          "0xC00446C9": 1.0,
-          "0xC00846D6": 1.0,
-          "0xC0104629": 1.0,
-          "0xC01046CE": 1.0,
-          "0xC020462A": 1.0,
-          "0xC020462B": 1.0,
-          "0xC030462B": 1.0,
-          "0xC038464E": 1.0,
-          "0xC23046D7": 1.0,
-          "0xC90046C8": 1.0
-        },
-        "non_deterministic_codes": [],
-        "determinism_score": 1.0,
-        "per_run_unique_codes": [
-          16,
-          16,
-          16
-        ]
-      },
       "full_sequence": [
         {
           "sequence_index": 0,
@@ -672,7 +552,7 @@
             "phase": "object control",
             "confidence": "low",
             "source": "observed in cuInit trace",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -6432,45 +6312,6 @@
       "unique_codes": 16,
       "new_codes_vs_prev": 0,
       "new_ioctls_vs_prev": [],
-      "net_new_events": 0,
-      "event_delta_vs_prev": {},
-      "confidence_summary": {
-        "high": 8,
-        "medium": 7,
-        "low": 1,
-        "none": 0
-      },
-      "reproducibility": {
-        "step": "cu_device_get",
-        "binary": "programs/cu_device_get",
-        "runs": 3,
-        "checked": true,
-        "code_occurrence_rate": {
-          "0x00000017": 1.0,
-          "0x00000025": 1.0,
-          "0x00000027": 1.0,
-          "0x00000046": 1.0,
-          "0x0000004B": 1.0,
-          "0x30000001": 1.0,
-          "0xC00446C9": 1.0,
-          "0xC00846D6": 1.0,
-          "0xC0104629": 1.0,
-          "0xC01046CE": 1.0,
-          "0xC020462A": 1.0,
-          "0xC020462B": 1.0,
-          "0xC030462B": 1.0,
-          "0xC038464E": 1.0,
-          "0xC23046D7": 1.0,
-          "0xC90046C8": 1.0
-        },
-        "non_deterministic_codes": [],
-        "determinism_score": 1.0,
-        "per_run_unique_codes": [
-          16,
-          16,
-          16
-        ]
-      },
       "full_sequence": [
         {
           "sequence_index": 0,
@@ -6721,7 +6562,7 @@
             "phase": "object control",
             "confidence": "low",
             "source": "observed in cuInit trace",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12514,7 +12355,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12532,7 +12373,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12568,7 +12409,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12586,7 +12427,7 @@
             "phase": "memory management",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12604,7 +12445,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12658,7 +12499,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12730,7 +12571,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -12752,167 +12593,6 @@
           }
         }
       ],
-      "net_new_events": 481,
-      "event_delta_vs_prev": {
-        "0x00000017": {
-          "prev_count": 1,
-          "cur_count": 11,
-          "delta": 10
-        },
-        "0x00000018": {
-          "prev_count": 0,
-          "cur_count": 10,
-          "delta": 10
-        },
-        "0x00000019": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x0000001A": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x0000001B": {
-          "prev_count": 0,
-          "cur_count": 16,
-          "delta": 16
-        },
-        "0x0000001C": {
-          "prev_count": 0,
-          "cur_count": 16,
-          "delta": 16
-        },
-        "0x00000021": {
-          "prev_count": 0,
-          "cur_count": 23,
-          "delta": 23
-        },
-        "0x00000022": {
-          "prev_count": 0,
-          "cur_count": 25,
-          "delta": 25
-        },
-        "0x00000041": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x00000044": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x00000048": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0x00000049": {
-          "prev_count": 0,
-          "cur_count": 23,
-          "delta": 23
-        },
-        "0xC00446C9": {
-          "prev_count": 12,
-          "cur_count": 19,
-          "delta": 7
-        },
-        "0xC0104629": {
-          "prev_count": 5,
-          "cur_count": 96,
-          "delta": 91
-        },
-        "0xC01046CE": {
-          "prev_count": 4,
-          "cur_count": 11,
-          "delta": 7
-        },
-        "0xC01046CF": {
-          "prev_count": 0,
-          "cur_count": 7,
-          "delta": 7
-        },
-        "0xC020462A": {
-          "prev_count": 249,
-          "cur_count": 352,
-          "delta": 103
-        },
-        "0xC020464F": {
-          "prev_count": 0,
-          "cur_count": 23,
-          "delta": 23
-        },
-        "0xC028465E": {
-          "prev_count": 0,
-          "cur_count": 1,
-          "delta": 1
-        },
-        "0xC030462B": {
-          "prev_count": 37,
-          "cur_count": 124,
-          "delta": 87
-        },
-        "0xC0384627": {
-          "prev_count": 0,
-          "cur_count": 4,
-          "delta": 4
-        },
-        "0xC038464E": {
-          "prev_count": 4,
-          "cur_count": 27,
-          "delta": 23
-        }
-      },
-      "confidence_summary": {
-        "high": 9,
-        "medium": 14,
-        "low": 8,
-        "none": 0
-      },
-      "reproducibility": {
-        "step": "cu_ctx_create",
-        "binary": "programs/cu_ctx_create",
-        "runs": 5,
-        "checked": true,
-        "code_occurrence_rate": {
-          "0x00000017": 1.0,
-          "0x00000019": 1.0,
-          "0x0000001B": 1.0,
-          "0x00000021": 1.0,
-          "0x00000025": 1.0,
-          "0x00000027": 1.0,
-          "0x00000041": 1.0,
-          "0x00000044": 1.0,
-          "0x00000046": 1.0,
-          "0x00000048": 1.0,
-          "0x00000049": 1.0,
-          "0x0000004B": 1.0,
-          "0x30000001": 1.0,
-          "0xC00446C9": 1.0,
-          "0xC00846D6": 1.0,
-          "0xC0104629": 1.0,
-          "0xC01046CE": 1.0,
-          "0xC020462A": 1.0,
-          "0xC020462B": 1.0,
-          "0xC028465E": 1.0,
-          "0xC030462B": 1.0,
-          "0xC0384627": 1.0,
-          "0xC038464E": 1.0,
-          "0xC23046D7": 1.0,
-          "0xC90046C8": 1.0
-        },
-        "non_deterministic_codes": [],
-        "determinism_score": 1.0,
-        "per_run_unique_codes": [
-          25,
-          25,
-          25,
-          25,
-          25
-        ]
-      },
       "full_sequence": [
         {
           "sequence_index": 0,
@@ -13163,7 +12843,7 @@
             "phase": "object control",
             "confidence": "low",
             "source": "observed in cuInit trace",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19013,7 +18693,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19031,7 +18711,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19067,7 +18747,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19085,7 +18765,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19121,7 +18801,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19139,7 +18819,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19175,7 +18855,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19193,7 +18873,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19319,7 +18999,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19337,7 +19017,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19409,7 +19089,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19427,7 +19107,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19697,7 +19377,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -19715,7 +19395,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21119,7 +20799,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21137,7 +20817,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21155,7 +20835,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21173,7 +20853,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21191,7 +20871,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21209,7 +20889,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21227,7 +20907,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21245,7 +20925,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21929,7 +21609,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21947,7 +21627,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21965,7 +21645,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -21983,7 +21663,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22667,7 +22347,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22685,7 +22365,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22703,7 +22383,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22721,7 +22401,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22865,7 +22545,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22883,7 +22563,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22955,7 +22635,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22973,7 +22653,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -22991,7 +22671,7 @@
             "phase": "memory management",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23009,7 +22689,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23261,7 +22941,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23279,7 +22959,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23315,7 +22995,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23333,7 +23013,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23369,7 +23049,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23387,7 +23067,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23423,7 +23103,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23441,7 +23121,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23477,7 +23157,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23495,7 +23175,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23549,7 +23229,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23567,7 +23247,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23603,7 +23283,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23621,7 +23301,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23693,7 +23373,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23711,7 +23391,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23747,7 +23427,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23765,7 +23445,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23801,7 +23481,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23819,7 +23499,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23909,7 +23589,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23927,7 +23607,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23963,7 +23643,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -23981,7 +23661,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24017,7 +23697,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24035,7 +23715,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24341,7 +24021,7 @@
             "phase": "memory mapping",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24359,7 +24039,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24395,7 +24075,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24431,7 +24111,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24611,7 +24291,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24647,7 +24327,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24683,7 +24363,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24755,7 +24435,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24791,7 +24471,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24863,7 +24543,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24917,7 +24597,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24935,7 +24615,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -24971,7 +24651,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25007,7 +24687,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25241,7 +24921,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25295,7 +24975,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25367,7 +25047,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25385,7 +25065,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25403,7 +25083,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25421,7 +25101,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25439,7 +25119,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25457,7 +25137,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25475,7 +25155,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -25493,7 +25173,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26303,7 +25983,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26321,7 +26001,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26339,7 +26019,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26357,7 +26037,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26717,7 +26397,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26735,7 +26415,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26753,7 +26433,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -26771,7 +26451,7 @@
             "phase": "teardown",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27077,7 +26757,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27131,7 +26811,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27203,7 +26883,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27239,7 +26919,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27275,7 +26955,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27311,7 +26991,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27365,7 +27045,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27419,7 +27099,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27455,7 +27135,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27491,7 +27171,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {
@@ -27509,7 +27189,7 @@
             "phase": "context setup",
             "confidence": "low",
             "source": "uvm-ioctl.h",
-            "needs_review": true
+            "needs_review": false
           }
         },
         {

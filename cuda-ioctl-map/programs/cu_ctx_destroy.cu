@@ -9,8 +9,13 @@ int main() {
     CUresult r = cuCtxCreate(&ctx, 0, dev);
     if (r != CUDA_SUCCESS) {
         const char *err; cuGetErrorString(r, &err);
-        printf("FAILED: %s\n", err); return 1;
+        printf("FAILED create: %s\n", err); return 1;
     }
-    printf("cuCtxCreate OK (no destroy in this step)\n");
+    r = cuCtxDestroy(ctx);
+    if (r != CUDA_SUCCESS) {
+        const char *err; cuGetErrorString(r, &err);
+        printf("FAILED destroy: %s\n", err); return 1;
+    }
+    printf("cuCtxDestroy OK\n");
     return 0;
 }

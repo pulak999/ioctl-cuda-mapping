@@ -1,0 +1,3336 @@
+{
+  "step": "cu_device_get",
+  "run": 1,
+  "ioctl_sequence": [
+    {
+      "sequence_index": 0,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC00846D6",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd6, 0x8), 0x7ffedd435af0) = 0",
+      "args": "0x7ffedd435af0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 1,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC90046C8",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc8, 0x900), 0x70029451aae0) = 0",
+      "args": "0x70029451aae0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 2,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x20), 0x7ffedd435c40) = 0",
+      "args": "0x7ffedd435c40",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 3,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd434b40) = 0",
+      "args": "0x7ffedd434b40",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 4,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC0104629",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x29, 0x10), 0x7ffedd435c20) = 0",
+      "args": "0x7ffedd435c20",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 5,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC00846D6",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd6, 0x8), 0x7ffedd4360b0) = 0",
+      "args": "0x7ffedd4360b0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 6,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC90046C8",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc8, 0x900), 0x70029451aae0) = 0",
+      "args": "0x70029451aae0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 7,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x20), 0x7ffedd436200) = 0",
+      "args": "0x7ffedd436200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 8,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350c0) = 0",
+      "args": "0x7ffedd4350c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 9,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350c0) = 0",
+      "args": "0x7ffedd4350c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 10,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd4361f0) = 0",
+      "args": "0x7ffedd4361f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 11,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350d0) = 0",
+      "args": "0x7ffedd4350d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 12,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x30000001",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x1, 0x3000), 0x7ffedd436200) = 0",
+      "args": "0x7ffedd436200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 13,
+      "fd": "10",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x0000004B",
+      "decoded": "ioctl(10, _IOC(_IOC_NONE, 0, 0x4b, 0), 0x7ffedd436200) = 0",
+      "args": "0x7ffedd436200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 14,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000027",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x27, 0), 0x7ffedd436200) = 0",
+      "args": "0x7ffedd436200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 15,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433270) = 0",
+      "args": "0x7ffedd433270",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 16,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432aa0) = 0",
+      "args": "0x7ffedd432aa0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 17,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331b0) = 0",
+      "args": "0x7ffedd4331b0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 18,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331b0) = 0",
+      "args": "0x7ffedd4331b0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 19,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331b0) = 0",
+      "args": "0x7ffedd4331b0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 20,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331b0) = 0",
+      "args": "0x7ffedd4331b0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 21,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 22,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433360) = 0",
+      "args": "0x7ffedd433360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 23,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC0104629",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x29, 0x10), 0x7ffedd434400) = 0",
+      "args": "0x7ffedd434400",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 24,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 25,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 26,
+      "fd": "15",
+      "device": "/dev/nvidia0",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(15, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434370) = 0",
+      "args": "0x7ffedd434370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 27,
+      "fd": "15",
+      "device": "/dev/nvidia0",
+      "request_code": "0xC23046D7",
+      "decoded": "ioctl(15, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd7, 0x230), 0x7ffedd4340f0) = 0",
+      "args": "0x7ffedd4340f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 28,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434440) = 0",
+      "args": "0x7ffedd434440",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 29,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 30,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331d0) = 0",
+      "args": "0x7ffedd4331d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 31,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 32,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4332e0) = 0",
+      "args": "0x7ffedd4332e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 33,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 34,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 35,
+      "fd": "16",
+      "device": "/dev/nvidia0",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(16, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434360) = 0",
+      "args": "0x7ffedd434360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 36,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434470) = 0",
+      "args": "0x7ffedd434470",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 37,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434490) = 0",
+      "args": "0x7ffedd434490",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 38,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 39,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432cc0) = 0",
+      "args": "0x7ffedd432cc0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 40,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433270) = 0",
+      "args": "0x7ffedd433270",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 41,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4328e0) = 0",
+      "args": "0x7ffedd4328e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 42,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4320d0) = 0",
+      "args": "0x7ffedd4320d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 43,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432720) = 0",
+      "args": "0x7ffedd432720",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 44,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 45,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 46,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 47,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 48,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 49,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 50,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 51,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432ca0) = 0",
+      "args": "0x7ffedd432ca0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 52,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fb0) = 0",
+      "args": "0x7ffedd432fb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 53,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433050) = 0",
+      "args": "0x7ffedd433050",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 54,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 55,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 56,
+      "fd": "17",
+      "device": "/dev/nvidia0",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(17, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434220) = 0",
+      "args": "0x7ffedd434220",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 57,
+      "fd": "17",
+      "device": "/dev/nvidia0",
+      "request_code": "0xC01046CE",
+      "decoded": "ioctl(17, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xce, 0x10), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 58,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432eb0) = 0",
+      "args": "0x7ffedd432eb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 59,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 60,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 61,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 62,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 63,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 64,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 65,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 66,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 67,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433000) = 0",
+      "args": "0x7ffedd433000",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 68,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 69,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd430ae0) = 0",
+      "args": "0x7ffedd430ae0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 70,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd431b90) = 0",
+      "args": "0x7ffedd431b90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 71,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 72,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fe0) = 0",
+      "args": "0x7ffedd432fe0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 73,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434200) = 0",
+      "args": "0x7ffedd434200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 74,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fd0) = 0",
+      "args": "0x7ffedd432fd0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 75,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC038464E",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x4e, 0x38), 0x7ffedd434190) = 0",
+      "args": "0x7ffedd434190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 76,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 77,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 78,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433130) = 0",
+      "args": "0x7ffedd433130",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 79,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 80,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 81,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 82,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 83,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 84,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 85,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 86,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433360) = 0",
+      "args": "0x7ffedd433360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 87,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC0104629",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x29, 0x10), 0x7ffedd434400) = 0",
+      "args": "0x7ffedd434400",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 88,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 89,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 90,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 91,
+      "fd": "18",
+      "device": "/dev/nvidia1",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(18, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434370) = 0",
+      "args": "0x7ffedd434370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 92,
+      "fd": "18",
+      "device": "/dev/nvidia1",
+      "request_code": "0xC23046D7",
+      "decoded": "ioctl(18, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd7, 0x230), 0x7ffedd4340f0) = 0",
+      "args": "0x7ffedd4340f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 93,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434440) = 0",
+      "args": "0x7ffedd434440",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 94,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 95,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331d0) = 0",
+      "args": "0x7ffedd4331d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 96,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 97,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4332e0) = 0",
+      "args": "0x7ffedd4332e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 98,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 99,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 100,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 101,
+      "fd": "19",
+      "device": "/dev/nvidia1",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(19, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434360) = 0",
+      "args": "0x7ffedd434360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 102,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434470) = 0",
+      "args": "0x7ffedd434470",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 103,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434490) = 0",
+      "args": "0x7ffedd434490",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 104,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 105,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432cc0) = 0",
+      "args": "0x7ffedd432cc0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 106,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433270) = 0",
+      "args": "0x7ffedd433270",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 107,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4328e0) = 0",
+      "args": "0x7ffedd4328e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 108,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4320d0) = 0",
+      "args": "0x7ffedd4320d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 109,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432720) = 0",
+      "args": "0x7ffedd432720",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 110,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 111,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 112,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 113,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 114,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 115,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 116,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 117,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432ca0) = 0",
+      "args": "0x7ffedd432ca0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 118,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fb0) = 0",
+      "args": "0x7ffedd432fb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 119,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433050) = 0",
+      "args": "0x7ffedd433050",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 120,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 121,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 122,
+      "fd": "20",
+      "device": "/dev/nvidia1",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(20, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434220) = 0",
+      "args": "0x7ffedd434220",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 123,
+      "fd": "20",
+      "device": "/dev/nvidia1",
+      "request_code": "0xC01046CE",
+      "decoded": "ioctl(20, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xce, 0x10), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 124,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432eb0) = 0",
+      "args": "0x7ffedd432eb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 125,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 126,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 127,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 128,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 129,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 130,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 131,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 132,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 133,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433000) = 0",
+      "args": "0x7ffedd433000",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 134,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 135,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd430ae0) = 0",
+      "args": "0x7ffedd430ae0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 136,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd431b90) = 0",
+      "args": "0x7ffedd431b90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 137,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 138,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fe0) = 0",
+      "args": "0x7ffedd432fe0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 139,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434200) = 0",
+      "args": "0x7ffedd434200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 140,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fd0) = 0",
+      "args": "0x7ffedd432fd0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 141,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC038464E",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x4e, 0x38), 0x7ffedd434190) = 0",
+      "args": "0x7ffedd434190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 142,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 143,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 144,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433130) = 0",
+      "args": "0x7ffedd433130",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 145,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 146,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 147,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 148,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 149,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 150,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 151,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 152,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433360) = 0",
+      "args": "0x7ffedd433360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 153,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC0104629",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x29, 0x10), 0x7ffedd434400) = 0",
+      "args": "0x7ffedd434400",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 154,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 155,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 156,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 157,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 158,
+      "fd": "21",
+      "device": "/dev/nvidia2",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(21, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434370) = 0",
+      "args": "0x7ffedd434370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 159,
+      "fd": "21",
+      "device": "/dev/nvidia2",
+      "request_code": "0xC23046D7",
+      "decoded": "ioctl(21, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd7, 0x230), 0x7ffedd4340f0) = 0",
+      "args": "0x7ffedd4340f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 160,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434440) = 0",
+      "args": "0x7ffedd434440",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 161,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 162,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331d0) = 0",
+      "args": "0x7ffedd4331d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 163,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 164,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4332e0) = 0",
+      "args": "0x7ffedd4332e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 165,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 166,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 167,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 168,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 169,
+      "fd": "22",
+      "device": "/dev/nvidia2",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(22, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434360) = 0",
+      "args": "0x7ffedd434360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 170,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434470) = 0",
+      "args": "0x7ffedd434470",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 171,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434490) = 0",
+      "args": "0x7ffedd434490",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 172,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 173,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432cc0) = 0",
+      "args": "0x7ffedd432cc0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 174,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433270) = 0",
+      "args": "0x7ffedd433270",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 175,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4328e0) = 0",
+      "args": "0x7ffedd4328e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 176,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4320d0) = 0",
+      "args": "0x7ffedd4320d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 177,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432720) = 0",
+      "args": "0x7ffedd432720",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 178,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 179,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 180,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 181,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 182,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 183,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 184,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 185,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432ca0) = 0",
+      "args": "0x7ffedd432ca0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 186,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fb0) = 0",
+      "args": "0x7ffedd432fb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 187,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433050) = 0",
+      "args": "0x7ffedd433050",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 188,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 189,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 190,
+      "fd": "23",
+      "device": "/dev/nvidia2",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(23, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434220) = 0",
+      "args": "0x7ffedd434220",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 191,
+      "fd": "23",
+      "device": "/dev/nvidia2",
+      "request_code": "0xC01046CE",
+      "decoded": "ioctl(23, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xce, 0x10), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 192,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432eb0) = 0",
+      "args": "0x7ffedd432eb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 193,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 194,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 195,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 196,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 197,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 198,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 199,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 200,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 201,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433000) = 0",
+      "args": "0x7ffedd433000",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 202,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 203,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd430ae0) = 0",
+      "args": "0x7ffedd430ae0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 204,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd431b90) = 0",
+      "args": "0x7ffedd431b90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 205,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 206,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fe0) = 0",
+      "args": "0x7ffedd432fe0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 207,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434200) = 0",
+      "args": "0x7ffedd434200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 208,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fd0) = 0",
+      "args": "0x7ffedd432fd0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 209,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC038464E",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x4e, 0x38), 0x7ffedd434190) = 0",
+      "args": "0x7ffedd434190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 210,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 211,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 212,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433130) = 0",
+      "args": "0x7ffedd433130",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 213,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 214,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 215,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 216,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 217,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 218,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 219,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 220,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433360) = 0",
+      "args": "0x7ffedd433360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 221,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC0104629",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x29, 0x10), 0x7ffedd434400) = 0",
+      "args": "0x7ffedd434400",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 222,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 223,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 224,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 225,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 226,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331f0) = 0",
+      "args": "0x7ffedd4331f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 227,
+      "fd": "24",
+      "device": "/dev/nvidia3",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(24, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434370) = 0",
+      "args": "0x7ffedd434370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 228,
+      "fd": "24",
+      "device": "/dev/nvidia3",
+      "request_code": "0xC23046D7",
+      "decoded": "ioctl(24, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd7, 0x230), 0x7ffedd4340f0) = 0",
+      "args": "0x7ffedd4340f0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 229,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434440) = 0",
+      "args": "0x7ffedd434440",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 230,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 231,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331d0) = 0",
+      "args": "0x7ffedd4331d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 232,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 233,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4332e0) = 0",
+      "args": "0x7ffedd4332e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 234,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 235,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 236,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 237,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 238,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331e0) = 0",
+      "args": "0x7ffedd4331e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 239,
+      "fd": "25",
+      "device": "/dev/nvidia3",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(25, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434360) = 0",
+      "args": "0x7ffedd434360",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 240,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434470) = 0",
+      "args": "0x7ffedd434470",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 241,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434490) = 0",
+      "args": "0x7ffedd434490",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 242,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 243,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432cc0) = 0",
+      "args": "0x7ffedd432cc0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 244,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433270) = 0",
+      "args": "0x7ffedd433270",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 245,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4328e0) = 0",
+      "args": "0x7ffedd4328e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 246,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4320d0) = 0",
+      "args": "0x7ffedd4320d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 247,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432720) = 0",
+      "args": "0x7ffedd432720",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 248,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 249,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 250,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 251,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 252,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 253,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 254,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432e50) = 0",
+      "args": "0x7ffedd432e50",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 255,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432ca0) = 0",
+      "args": "0x7ffedd432ca0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 256,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fb0) = 0",
+      "args": "0x7ffedd432fb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 257,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433050) = 0",
+      "args": "0x7ffedd433050",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 258,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 259,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 260,
+      "fd": "26",
+      "device": "/dev/nvidia3",
+      "request_code": "0xC00446C9",
+      "decoded": "ioctl(26, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7ffedd434220) = 0",
+      "args": "0x7ffedd434220",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 261,
+      "fd": "26",
+      "device": "/dev/nvidia3",
+      "request_code": "0xC01046CE",
+      "decoded": "ioctl(26, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xce, 0x10), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 262,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432eb0) = 0",
+      "args": "0x7ffedd432eb0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 263,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 264,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 265,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 266,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 267,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 268,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 269,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433090) = 0",
+      "args": "0x7ffedd433090",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 270,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 271,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433000) = 0",
+      "args": "0x7ffedd433000",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 272,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432f90) = 0",
+      "args": "0x7ffedd432f90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 273,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd430ae0) = 0",
+      "args": "0x7ffedd430ae0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 274,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd431b90) = 0",
+      "args": "0x7ffedd431b90",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 275,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 276,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fe0) = 0",
+      "args": "0x7ffedd432fe0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 277,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434200) = 0",
+      "args": "0x7ffedd434200",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 278,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd432fd0) = 0",
+      "args": "0x7ffedd432fd0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 279,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC038464E",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x4e, 0x38), 0x7ffedd434190) = 0",
+      "args": "0x7ffedd434190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 280,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434210) = 0",
+      "args": "0x7ffedd434210",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 281,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433190) = 0",
+      "args": "0x7ffedd433190",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 282,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433130) = 0",
+      "args": "0x7ffedd433130",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 283,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 284,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd434280) = 0",
+      "args": "0x7ffedd434280",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 285,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433160) = 0",
+      "args": "0x7ffedd433160",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 286,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 287,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4330c0) = 0",
+      "args": "0x7ffedd4330c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 288,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4331c0) = 0",
+      "args": "0x7ffedd4331c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 289,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433080) = 0",
+      "args": "0x7ffedd433080",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 290,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433370) = 0",
+      "args": "0x7ffedd433370",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 291,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 292,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 293,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 294,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 295,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 296,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 297,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 298,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4344d0) = 0",
+      "args": "0x7ffedd4344d0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 299,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433620) = 0",
+      "args": "0x7ffedd433620",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 300,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433620) = 0",
+      "args": "0x7ffedd433620",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 301,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433620) = 0",
+      "args": "0x7ffedd433620",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 302,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433620) = 0",
+      "args": "0x7ffedd433620",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 303,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433620) = 0",
+      "args": "0x7ffedd433620",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 304,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433ea0) = 0",
+      "args": "0x7ffedd433ea0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 305,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4326a0) = 0",
+      "args": "0x7ffedd4326a0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 306,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433ea0) = 0",
+      "args": "0x7ffedd433ea0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 307,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4326a0) = 0",
+      "args": "0x7ffedd4326a0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 308,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433ea0) = 0",
+      "args": "0x7ffedd433ea0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 309,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4326a0) = 0",
+      "args": "0x7ffedd4326a0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 310,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd433ea0) = 0",
+      "args": "0x7ffedd433ea0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 311,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4326a0) = 0",
+      "args": "0x7ffedd4326a0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 312,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000025",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7ffedd435d70) = 0",
+      "args": "0x7ffedd435d70",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 313,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000046",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7ffedd435de0) = 0",
+      "args": "0x7ffedd435de0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 314,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000025",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7ffedd435d70) = 0",
+      "args": "0x7ffedd435d70",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 315,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000046",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7ffedd435de0) = 0",
+      "args": "0x7ffedd435de0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 316,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000025",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7ffedd435d70) = 0",
+      "args": "0x7ffedd435d70",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 317,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000046",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7ffedd435de0) = 0",
+      "args": "0x7ffedd435de0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 318,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000025",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7ffedd435d70) = 0",
+      "args": "0x7ffedd435d70",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 319,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000046",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7ffedd435de0) = 0",
+      "args": "0x7ffedd435de0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 320,
+      "fd": "9",
+      "device": "/dev/nvidia-uvm",
+      "request_code": "0x00000017",
+      "decoded": "ioctl(9, _IOC(_IOC_NONE, 0, 0x17, 0), 0x7ffedd436240) = 0",
+      "args": "0x7ffedd436240",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 321,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd435fa0) = 0",
+      "args": "0x7ffedd435fa0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 322,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd435fa0) = 0",
+      "args": "0x7ffedd435fa0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 323,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd435fa0) = 0",
+      "args": "0x7ffedd435fa0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 324,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd435fa0) = 0",
+      "args": "0x7ffedd435fa0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 325,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd4361e0) = 0",
+      "args": "0x7ffedd4361e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 326,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350c0) = 0",
+      "args": "0x7ffedd4350c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 327,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd4361e0) = 0",
+      "args": "0x7ffedd4361e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 328,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350c0) = 0",
+      "args": "0x7ffedd4350c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 329,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd4361e0) = 0",
+      "args": "0x7ffedd4361e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 330,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350c0) = 0",
+      "args": "0x7ffedd4350c0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 331,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC030462B",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7ffedd4361e0) = 0",
+      "args": "0x7ffedd4361e0",
+      "return_value": "0",
+      "is_new": false
+    },
+    {
+      "sequence_index": 332,
+      "fd": "8",
+      "device": "/dev/nvidiactl",
+      "request_code": "0xC020462A",
+      "decoded": "ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7ffedd4350c0) = 0",
+      "args": "0x7ffedd4350c0",
+      "return_value": "0",
+      "is_new": false
+    }
+  ]
+}
