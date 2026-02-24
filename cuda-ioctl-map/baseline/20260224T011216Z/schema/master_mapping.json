@@ -283,7 +283,7 @@
           }
         }
       ],
-      "net_event_delta": 230,
+      "net_new_events": 230,
       "event_delta_vs_prev": {
         "0x00000017": {
           "prev_count": 0,
@@ -4552,7 +4552,7 @@
       "unique_codes": 15,
       "new_codes_vs_prev": 0,
       "new_ioctls_vs_prev": [],
-      "net_event_delta": 0,
+      "net_new_events": 0,
       "event_delta_vs_prev": {},
       "confidence_summary": {
         "high": 7,
@@ -8926,7 +8926,7 @@
           }
         }
       ],
-      "net_event_delta": 345,
+      "net_new_events": 345,
       "event_delta_vs_prev": {
         "0x00000017": {
           "prev_count": 1,
@@ -19526,7 +19526,7 @@
           }
         }
       ],
-      "net_event_delta": 201,
+      "net_new_events": 201,
       "event_delta_vs_prev": {
         "0x00000018": {
           "prev_count": 0,

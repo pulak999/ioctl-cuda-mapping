@@ -11,19 +11,22 @@ repo — `cu_init`, `cu_device_get`, `cu_ctx_create`, `cu_ctx_destroy`.
 
 ---
 
-## Where we are (end of plan-v0)
+## Where we are (end of plan-v0 + code review)
 
 ### What works
 
 | Asset | Status |
 |-------|--------|
 | 4-stage pipeline (trace → parse → annotate → schema/report) | ✅ Working |
-| 3 cumulative CUDA programs compiled and traced | ✅ |
-| `cu_ctx_destroy` compiled + repro checked (5 runs, 100% deterministic) | ✅ |
-| 31 unique ioctl codes across all steps, **0 unknowns** | ✅ |
-| Reproducibility checker, 100% determinism on all programs | ✅ |
-| Lookup table with 34 entries, confidence-tiered | ✅ |
-| Baseline snapshot for regression | ✅ |
+| **All 4 cumulative CUDA programs** compiled, traced, and in full pipeline | ✅ (cu_ctx_destroy added) |
+| strace flags standardised: `-f -e trace=ioctl,openat,close` across all collection | ✅ (re-collected) |
+| **31 unique ioctl codes, 0 unknowns**, 0 none-confidence entries | ✅ |
+| Reproducibility checker, 100% determinism on all 4 programs | ✅ |
+| Frequency-stability tracking added to repro reports and rendered in report | ✅ (C1 fix) |
+| Lookup table with 35 entries, confidence-tiered (incl. NV_ESC_GPU_ENUM_BOUNDARY) | ✅ |
+| `programs/Makefile` for reproducible binary builds | ✅ (PR1 fix) |
+| Baseline snapshot for regression (`baseline/20260220T224129Z/`) | ✅ |
+| B2 gap-warning: build_schema.py alerts when a step's predecessor is missing | ✅ |
 
 ### What's missing for replay
 
@@ -33,10 +36,10 @@ repo — `cu_init`, `cu_device_get`, `cu_ctx_create`, `cu_ctx_destroy`.
 | **No struct-aware parsing** | 🔴 Critical | Even with argument bytes we'd need struct layouts to interpret them (handle IDs, class codes, control sub-commands). |
 | **No replay tool** | 🔴 Critical | Nothing that opens `/dev/nvidia*` and issues raw ioctls from captured data. |
 | **No handle-patching logic** | 🟡 High | The kernel returns new handle values on each run. Replay must remap original→new handles in subsequent calls. |
-| **strace flag inconsistency** | 🟡 Medium | Primary traces: no `-f`, no `close`. Repro checker: `-f`, `close`, no `mmap`. Causes data divergence (cu_ctx_create primary=31 codes vs repro=25 codes). |
-| **cu_ctx_create teardown contamination** | 🟡 Medium | Primary trace attributes 6 teardown codes to cuCtxCreate that belong to implicit cuCtxDestroy at process exit. |
-| **cu_ctx_destroy not in main pipeline** | 🟡 Medium | Has binary + repro data but no primary trace / parsed / annotated / schema entry. |
+| **schema not diffable for baseline comparison** | 🟡 Medium | `decoded` field in master_mapping.json embeds raw strace lines with ASLR-varying pointer values; file-level diff against baseline is unusable for automation (XC3). |
 | **No dmesg capture** | 🟠 Low (for now) | Not available on this machine. Can revisit later; strace + interposer cover the userspace side. |
+
+> **Resolved since plan-v0:** strace flag inconsistency ✅, cu_ctx_create teardown contamination ✅ (fixed by `-f` flag — cu_ctx_create now correctly shows 25 unique codes, all 6 teardown codes appear only in cu_ctx_destroy's delta), cu_ctx_destroy not in pipeline ✅.
 
 ---
 
@@ -53,14 +56,14 @@ Phase 5  Validate               ← compare replay trace against original
 
 ---
 
-## Phase 0 — Fix data quality
+## Phase 0 — Fix data quality ✅ COMPLETE
 
 **Goal:** Make sure every trace in the repo is collected with the same flags
 and that the four in-scope programs all flow through the full pipeline.
 
-### 0.1 Standardise strace invocation
+### 0.1 Standardise strace invocation ✅
 
-One canonical command everywhere — primary collection AND repro checker:
+Canonical command confirmed and applied everywhere:
 
 ```bash
 strace -f \
@@ -69,67 +72,49 @@ strace -f \
        ./programs/<step_name>
 ```
 
-Why these flags:
-- `-f` — follow threads; CUDA driver spawns internal threads. Without this
-  you miss activity and get different code sets.
-- `close` — needed for FD-reuse tracking (W2 in the parser).
-- Drop `mmap,munmap,read,write` — they add noise and the parser ignores them
-  anyway.
+`check_reproducibility.py`'s `STRACE_CMD` matches exactly.
 
-Update `check_reproducibility.py`'s `STRACE_CMD` to match (it already uses
-`-f` and `close`; just confirm it's identical).
+### 0.2 Re-collect primary traces ✅
 
-### 0.2 Re-collect primary traces
+All four programs re-traced on 3-GPU machine (TITAN RTX ×3) with standardised
+flags. Machine has `/dev/nvidia0`–`2` (no `/dev/nvidia3`).
 
-```bash
-cd cuda-ioctl-map
+### 0.3 Re-run full pipeline ✅
 
-# re-trace all four programs with standardised flags
-for step in cu_init cu_device_get cu_ctx_create cu_ctx_destroy; do
-  strace -f -e trace=ioctl,openat,close \
-         -o traces/${step}.log \
-         ./programs/${step}
-done
-```
+All four steps parsed, annotated, schema rebuilt, report regenerated.
 
-After re-collection the cu_ctx_create primary trace should show ~25 unique
-codes (matching its repro runs), not 31.  The extra 6 teardown codes should
-appear only in cu_ctx_destroy.
+### 0.4 Verify consistency ✅
 
-### 0.3 Re-run full pipeline
+Confirmed results (3-GPU machine, current baseline):
 
-```bash
-python3 parse_trace.py traces/cu_init.log traces/cu_device_get.log \
-        traces/cu_ctx_create.log traces/cu_ctx_destroy.log
+| Step | Total ioctls | Unique codes | New codes vs prev | Net event delta |
+|------|-------------|--------------|-------------------|-----------------|
+| cu_init | **230** | **15** | 15 | +230 |
+| cu_device_get | **230** | **15** | 0 | 0 |
+| cu_ctx_create | **575** | **25** | 10 | +345 |
+| cu_ctx_destroy | **776** | **31** | 6 | +201 |
 
-python3 annotate_static.py parsed/cu_init.json parsed/cu_device_get.json \
-        parsed/cu_ctx_create.json parsed/cu_ctx_destroy.json
-
-python3 build_schema.py
-python3 generate_report.py
-```
-
-### 0.4 Verify consistency
-
-After re-run, confirm:
-- `cu_ctx_create` repro unique codes == primary unique codes (should be 25).
-- `cu_ctx_destroy` introduces the teardown-delta codes (~6 new codes:
+- `cu_ctx_create` now shows **25 unique codes** — matches repro run counts. ✅
+- `cu_ctx_destroy` introduces exactly **6 teardown codes** as predicted:
   `UVM_UNREGISTER_GPU`, `UVM_UNREGISTER_CHANNEL`, `UVM_UNMAP_EXTERNAL`,
   `UVM_PAGEABLE_MEM_ACCESS`, `NV_ESC_CHECK_VERSION_STR (variant)`,
-  `NV_ESC_RM_MAP_MEMORY` — exact set to be confirmed).
-- Total unique codes across all four steps should still be ~31.
+  `NV_ESC_RM_MAP_MEMORY`. ✅
+- Total unique codes across all four steps: **31**, 0 unknowns, 0 none-confidence. ✅
+- `NV_ESC_GPU_ENUM_BOUNDARY` (`0xC00C46D1`) confirmed as normal GPU enumeration
+  boundary signal — fires once in cu_init when `/dev/nvidia3` probe returns EIO.
+  Normal on any machine with < 4 GPUs. Added to lookup table as `confidence: low`.
 
-### 0.5 Save new baseline
+### 0.5 Save new baseline ⚠️ PENDING
 
 ```bash
 TS=$(date -u +%Y%m%dT%H%M%SZ)
 mkdir -p baseline/$TS
 cp -r annotated parsed schema CUDA_IOCTL_MAP.md baseline/$TS/
-# write phase0_metrics.json for the new baseline
 ```
 
-**Exit criteria for Phase 0:** all four programs in the report, strace flags
-consistent, repro vs primary counts match, new baseline saved.
+The existing baseline (`baseline/20260220T224129Z/`) reflects the old 4-GPU
+machine with un-standardised flags and is now stale. Save a new one before
+starting Phase 1.
 
 ---
 
@@ -291,21 +276,30 @@ need careful handling.)
 
 ### 2.4 Priority order
 
-Build struct definitions in this order (by frequency in our traces):
+Build struct definitions in this order (by frequency in our traces).
+Counts are from the **current 3-GPU machine baseline** (see Phase 0.4):
 
-| Priority | Code | Name | Events in cu_ctx_create |
-|----------|------|------|------------------------|
-| P0 | `0xC020462A` | `NV_ESC_RM_ALLOC` | 352 |
-| P0 | `0xC030462B` | `NV_ESC_RM_ALLOC` (large / NVOS64) | 124 |
-| P0 | `0xC0104629` | `NV_ESC_RM_CONTROL` | 96 |
-| P1 | `0xC038464E` | `NV_ESC_RM_VID_HEAP_CONTROL` | 27 |
-| P1 | `0xC020464F` | `NV_ESC_RM_MAP_MEMORY` | 23 |
-| P1 | `0xC00446C9` | `NV_ESC_REGISTER_FD` | 19 |
-| P1 | `0xC01046CE` | `NV_ESC_CHECK_VERSION_STR` | 11 |
-| P2 | UVM codes (0x00000017–0x00000049) | various UVM | ~120 total |
-| P2 | `0xC90046C8` | `NV_ESC_ATTACH_GPUS_TO_FD` | 2 |
-| P2 | `0xC00846D6` | `NV_ESC_CARD_INFO` | 2 |
-| P3 | All remaining codes | | low count |
+| Priority | Code | Name | cu_init | cu_ctx_create | cu_ctx_destroy |
+|----------|------|------|---------|---------------|----------------|
+| P0 | `0xC020462A` | `NV_ESC_RM_ALLOC` | 178 | 292 | 296 |
+| P0 | `0xC030462B` | `NV_ESC_RM_ALLOC` (large / NVOS64) | 22 | 123 | 123 |
+| P0 | `0xC0104629` | `NV_ESC_RM_CONTROL` | 4 | 4 | 110 |
+| P1 | `0xC038464E` | `NV_ESC_RM_VID_HEAP_CONTROL` | 3 | 30 | 30 |
+| P1 | `0xC020464F` | `NV_ESC_RM_MAP_MEMORY` | 0 | 0 | 27 |
+| P1 | `0x0000001C` | `UVM_UNMAP_EXTERNAL` | 0 | 0 | 20 |
+| P1 | `0x0000001B` | `UVM_MAP_DYNAMIC_PARALLELISM_REGION` | 0 | 20 | 20 |
+| P1 | `0x00000021` | `UVM_ALLOC_SEMAPHORE_POOL` | 0 | 24 | 24 |
+| P1 | `0x00000049` | `UVM_MAP_EXTERNAL_SPARSE` | 0 | 24 | 24 |
+| P1 | `0xC00446C9` | `NV_ESC_REGISTER_FD` | 6 | 14 | 14 |
+| P2 | `0xC01046CE` | `NV_ESC_CHECK_VERSION_STR` | 0 | 8 | 8 |
+| P2 | `0xC01046CF` | `NV_ESC_CHECK_VERSION_STR` (variant) | 0 | 0 | 8 |
+| P2 | `0x00000017` | `UVM_MAP_EXTERNAL_ALLOCATION` | 1 | 10 | 10 |
+| P2 | `0x00000022` | `UVM_PAGEABLE_MEM_ACCESS` | 0 | 0 | 26 |
+| P2 | `0xC28465E`  | `NV_ESC_RM_DUP_OBJECT` | 0 | 1 | 1 |
+| P2 | `0xC0384627` | `NV_ESC_RM_SHARE` | 0 | 5 | 5 |
+| P3 | `0xC90046C8` | `NV_ESC_ATTACH_GPUS_TO_FD` | 2 | 2 | 2 |
+| P3 | `0xC00846D6` | `NV_ESC_CARD_INFO` | 2 | 2 | 2 |
+| P3 | Remaining low-count codes | | — | — | — |
 
 **Exit criteria for Phase 2:** `struct_registry.json` covers every ioctl code
 in the lookup table.  Sizes agree with `_IOC_SIZE()` for nvidiactl codes.
@@ -480,12 +474,16 @@ incrementally add pointer captures for those.
 
 `cuInit` is the simplest and highest-value first target:
 
-- 333 total ioctls, 16 unique codes
-- Heavy on `NV_ESC_RM_ALLOC` (249 calls) and `NV_ESC_RM_ALLOC (large)` (37)
-- Deterministic (repro score 1.0)
-- Touches `/dev/nvidiactl`, `/dev/nvidia0`–`3`, `/dev/nvidia-uvm`
+- **230 total ioctls, 15 unique codes** (3-GPU machine baseline)
+- Heavy on `NV_ESC_RM_ALLOC` (**178 calls**) and `NV_ESC_RM_ALLOC (large)` (**22 calls**)
+- `NV_ESC_RM_CONTROL`: 4 calls (low in cuInit; spikes to 110 in cuCtxDestroy)
+- Deterministic: presence-reproducibility 100%, frequency-stability pending re-run
+- Touches `/dev/nvidiactl`, `/dev/nvidia0`–`2`, `/dev/nvidia-uvm`
+- One `NV_ESC_GPU_ENUM_BOUNDARY` fires when `/dev/nvidia3` probe fails — replay
+  must replicate this by probing sequentially and issuing the boundary ioctl after
+  the first failed open.
 
-Success criteria: `replay programs/cu_init` opens device files, issues ~333
+Success criteria: `replay programs/cu_init` opens device files, issues ~230
 ioctls, all return 0, and `nvidia-smi` or `/proc/driver/nvidia/` shows the
 expected GPU state afterwards.
 
@@ -593,9 +591,11 @@ since they're independent work.  Phase 3 needs both.  Phase 4 needs Phase 3.
 | `_IOC_SIZE` returns 0 for UVM ioctls | Interposer captures wrong amount | Build UVM size table from `uvm_ioctl.h`; fall back to 4 KB capture |
 | Pointer fields in NVOS21/NVOS64 (`pAllocParms`) | Replay sends wrong sub-params | Start with NULL pAllocParms (works for many classes); incrementally add pointer-following |
 | Kernel returns different handle values | Subsequent ioctls fail | Handle-patching map in replay tool (Phase 4.3) |
-| Multi-GPU system (4 GPUs seen in traces) | Device file mapping complexity | Replay opens all `/dev/nvidia{0..3}` and maps FDs by the same device-path key |
+| Multi-GPU system (3 GPUs on this machine) | Device file mapping complexity | Replay opens `/dev/nvidia{0..2}`, probes `/dev/nvidia3` (expect EIO), then fires `NV_ESC_GPU_ENUM_BOUNDARY` |
 | RM_CONTROL sub-commands have their own param structs | Deeper pointer chasing | Decode `cmd` field first (Phase 3.4); add per-cmd param structs iteratively |
 | Thread ordering in `-f` traces | Non-determinism in trace merging | All programs are single-logical-thread for CUDA API calls; internal threads are idempotent bookkeeping |
+| **`is_new` flag / `new_codes` contract drift** (XC1) | `new_ioctls_vs_prev` silently wrong after adding intermediate steps | When adding any of the 5 missing STEP_ORDER steps, re-run full `strace → parse → annotate` for all downstream steps. The B2 warning in `build_schema.py` will fire to prompt this. |
+| **`decoded` field makes schema non-diffable** (XC3) | Baseline regression comparison produces pure noise | For Phase 5 validation, diff only `unique_codes`, `new_codes_vs_prev`, and `confidence_summary` fields — not raw schema files. Strip `decoded` from schema in a future cleanup pass. |
 
 ---
 
@@ -620,12 +620,14 @@ The plan is complete when:
 $ ./replay/replay decoded/cu_init.json
 [replay] opened /dev/nvidiactl (fd=3)
 [replay] opened /dev/nvidia0 (fd=4)
+[replay] opened /dev/nvidia1 (fd=5)
+[replay] opened /dev/nvidia2 (fd=6)
+[replay] open /dev/nvidia3 → EIO (expected — 3-GPU machine, boundary)
+[replay] ioctl 0/230: NV_ESC_CARD_INFO → ret=0
+[replay] ioctl 1/230: NV_ESC_ATTACH_GPUS_TO_FD → ret=0
 ...
-[replay] ioctl 0/333: NV_ESC_CARD_INFO → ret=0
-[replay] ioctl 1/333: NV_ESC_ATTACH_GPUS_TO_FD → ret=0
-...
-[replay] ioctl 332/333: UVM_MAP_EXTERNAL_ALLOCATION → ret=0
-[replay] DONE — 333/333 ioctls succeeded, 0 failed
+[replay] ioctl 229/230: UVM_MAP_EXTERNAL_ALLOCATION → ret=0
+[replay] DONE — 230/230 ioctls succeeded, 0 failed
 ```
 
 No `libcuda.so`.  No `nvcc`.  Just raw `open()` + `ioctl()` + our captured

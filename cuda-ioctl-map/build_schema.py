@@ -20,6 +20,25 @@ master      = {"cuda_to_ioctl_map": {}}
 prev_codes  = set()
 prev_counts = Counter()
 
+# B2-fix: warn when a step's canonical predecessor in STEP_ORDER is absent.
+# Delta metrics will be computed against the closest step that *does* have data,
+# which is silently wrong once the missing intermediate steps are added later.
+import sys as _sys
+for _step in STEP_ORDER:
+    if _step not in all_f:
+        continue
+    _idx = STEP_ORDER.index(_step)
+    if _idx > 0 and STEP_ORDER[_idx - 1] not in all_f:
+        _closest_prev = next(
+            (STEP_ORDER[j] for j in range(_idx - 1, -1, -1) if STEP_ORDER[j] in all_f),
+            None)
+        print(
+            f"  WARNING [B2] {_step!r}: expected predecessor "
+            f"{STEP_ORDER[_idx - 1]!r} not found in annotated/. "
+            f"Deltas computed against {_closest_prev!r}. "
+            f"Re-run parse+annotate for this step after filling the gap.",
+            file=_sys.stderr)
+
 for fpath in FILES:
     with open(fpath) as f: data = json.load(f)
     call = data["cuda_call"]
@@ -69,7 +88,8 @@ for fpath in FILES:
         "new_ioctls_vs_prev":  [i for i in data["ioctl_sequence"]
                                  if i["request_code"] in new_codes and i["is_new"]],
         # ── event-level delta (W4) ───────────────────────────────────────────
-        "net_new_events":      len(data["ioctl_sequence"]) - sum(prev_counts.values()),
+        # B1-fix: renamed from net_new_events — value can be negative (shrink)
+        "net_event_delta":     len(data["ioctl_sequence"]) - sum(prev_counts.values()),
         "event_delta_vs_prev": event_delta,
         # ── confidence summary (W7) ──────────────────────────────────────────
         "confidence_summary":  confidence_summary,
@@ -89,5 +109,5 @@ for c, d in master["cuda_to_ioctl_map"].items():
     cs = d["confidence_summary"]
     rep = "✓" if d["reproducibility"].get("checked") else "not checked"
     print(f"  [{c}] total={d['total_ioctls']} unique={d['unique_codes']} "
-          f"new_codes={d['new_codes_vs_prev']} net_new_events={d['net_new_events']} "
+          f"new_codes={d['new_codes_vs_prev']} net_event_delta={d['net_event_delta']} "
           f"conf=H{cs['high']}/M{cs['medium']}/L{cs['low']}/N{cs['none']} repro={rep}")

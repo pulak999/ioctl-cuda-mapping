@@ -9,6 +9,14 @@ W9: Reproducibility column in new-ioctls table; repro status in properties.
 import json, os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+
+def _md_escape(s: str) -> str:
+    """G3-fix: escape Markdown special characters that can break table cells."""
+    s = s.replace("|",  "\\|")   # column separator — was the only one escaped before
+    s = s.replace("*",  "\\*")   # bold / italic
+    s = s.replace("`",  "\\`")   # inline code fence
+    s = s.replace("[",  "\\[")   # link / footnote open bracket
+    return s
 with open(os.path.join(BASE, "schema", "master_mapping.json")) as f:
     master = json.load(f)
 
@@ -26,11 +34,14 @@ lines = [
 for call, data in master["cuda_to_ioctl_map"].items():
 
     # ── Reproducibility helpers (W9) ─────────────────────────────────────────
-    repro       = data.get("reproducibility", {})
+    repro         = data.get("reproducibility", {})
     repro_checked = repro.get("checked", False)
     repro_runs    = repro.get("runs", 0)
     non_det_codes = set(repro.get("non_deterministic_codes", []))
     occ_rates     = repro.get("code_occurrence_rate", {})
+    # XC4-fix: pull frequency-stability fields added by C1 fix
+    freq_unstable      = repro.get("frequency_unstable_codes", {})   # code → {min,max,per_run}
+    freq_stab_score    = repro.get("frequency_stability_score")       # float or None if old report
 
     def repro_cell(code):
         if not repro_checked: return "?"
@@ -44,6 +55,15 @@ for call, data in master["cuda_to_ioctl_map"].items():
     cs = data.get("confidence_summary", {})
     needs_review_count = cs.get("low", 0) + cs.get("none", 0)
     repro_status = f"✓ ({repro_runs} runs)" if repro_checked else "not checked"
+    # XC4-fix: frequency stability status line
+    if not repro_checked or freq_stab_score is None:
+        freq_status = "not checked"
+    elif freq_unstable:
+        n_unstable = len(freq_unstable)
+        n_total    = len(occ_rates)
+        freq_status = f"⚠ {freq_stab_score:.2%} ({n_unstable}/{n_total} codes vary in count)"
+    else:
+        freq_status = f"✓ {freq_stab_score:.2%} (all codes fire stable count)"
 
     lines += [
         f"## `{call}`", "",
@@ -52,8 +72,9 @@ for call, data in master["cuda_to_ioctl_map"].items():
         f"| Total ioctls (cumulative) | {data['total_ioctls']} |",
         f"| Unique ioctl codes | {data['unique_codes']} |",
         f"| **New codes vs prev** | **{data['new_codes_vs_prev']}** |",
-        f"| **Net new events vs prev** | **{data['net_new_events']}** |",
-        f"| Reproducibility | {repro_status} |",
+        f"| **Net event delta vs prev** | **{data['net_event_delta']}** |",
+        f"| Presence reproducibility | {repro_status} |",
+        f"| Frequency stability | {freq_status} |",   # XC4-fix
         "",
     ]
 
@@ -66,6 +87,27 @@ for call, data in master["cuda_to_ioctl_map"].items():
         f"| {cs.get('none',0)} | {needs_review_count} |",
         "",
     ]
+
+    # ── XC4-fix: Frequency-unstable codes detail table ────────────────────────
+    if repro_checked and freq_unstable:
+        # build name lookup from full_sequence
+        code_to_name_freq = {}
+        for i in data.get("full_sequence", []):
+            rc = i["request_code"]
+            if rc not in code_to_name_freq:
+                code_to_name_freq[rc] = i.get("annotation", {}).get("name", "?")
+        lines += [
+            "#### Frequency-unstable codes ⚠ (present every run, count varies)",
+            "",
+            "| Request Code | Name | Min | Max | Per-run counts |",
+            "|-------------|------|-----|-----|----------------|",
+        ]
+        for code, info in sorted(freq_unstable.items()):
+            per_run_str = ", ".join(str(x) for x in info["per_run"])
+            lines.append(
+                f"| `{code}` | {code_to_name_freq.get(code, '?')} "
+                f"| {info['min']} | {info['max']} | {per_run_str} |")
+        lines.append("")
 
     # ── Code-set delta ────────────────────────────────────────────────────────
     seen, uniq = set(), []
@@ -83,7 +125,7 @@ for call, data in master["cuda_to_ioctl_map"].items():
             a     = i.get("annotation", {})
             conf  = a.get("confidence", "?")
             warn  = " ⚠" if a.get("needs_review") else ""
-            desc  = a.get("description", "?").replace("|", "\\|")
+            desc  = _md_escape(a.get("description", "?"))
             lines.append(
                 f"| {idx} | `{i['device']}` | `{i['request_code']}` "
                 f"| {a.get('name','?')}{warn} | {desc} "

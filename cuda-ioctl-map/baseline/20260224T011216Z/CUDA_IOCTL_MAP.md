@@ -17,9 +17,8 @@
 | Total ioctls (cumulative) | 230 |
 | Unique ioctl codes | 15 |
 | **New codes vs prev** | **15** |
-| **Net event delta vs prev** | **230** |
-| Presence reproducibility | ✓ (3 runs) |
-| Frequency stability | not checked |
+| **Net new events vs prev** | **230** |
+| Reproducibility | ✓ (3 runs) |
 
 #### Confidence summary (unique codes)
 | High | Medium | Low ⚠ | None ⚠ | Total flagged for review |
@@ -76,9 +75,8 @@
 | Total ioctls (cumulative) | 230 |
 | Unique ioctl codes | 15 |
 | **New codes vs prev** | **0** |
-| **Net event delta vs prev** | **0** |
-| Presence reproducibility | ✓ (3 runs) |
-| Frequency stability | not checked |
+| **Net new events vs prev** | **0** |
+| Reproducibility | ✓ (3 runs) |
 
 #### Confidence summary (unique codes)
 | High | Medium | Low ⚠ | None ⚠ | Total flagged for review |
@@ -99,9 +97,8 @@
 | Total ioctls (cumulative) | 575 |
 | Unique ioctl codes | 25 |
 | **New codes vs prev** | **10** |
-| **Net event delta vs prev** | **345** |
-| Presence reproducibility | ✓ (5 runs) |
-| Frequency stability | not checked |
+| **Net new events vs prev** | **345** |
+| Reproducibility | ✓ (5 runs) |
 
 #### Confidence summary (unique codes)
 | High | Medium | Low ⚠ | None ⚠ | Total flagged for review |
@@ -153,9 +150,8 @@
 | Total ioctls (cumulative) | 776 |
 | Unique ioctl codes | 31 |
 | **New codes vs prev** | **6** |
-| **Net event delta vs prev** | **201** |
-| Presence reproducibility | ✓ (5 runs) |
-| Frequency stability | not checked |
+| **Net new events vs prev** | **201** |
+| Reproducibility | ✓ (5 runs) |
 
 #### Confidence summary (unique codes)
 | High | Medium | Low ⚠ | None ⚠ | Total flagged for review |

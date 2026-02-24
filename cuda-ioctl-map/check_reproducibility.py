@@ -29,7 +29,15 @@ Report schema:
   },
   "non_deterministic_codes": ["0x00000049"],
   "determinism_score": 0.94,    // fraction of unique codes that are fully deterministic
-  "per_run_unique_codes": [16, 16, 17]   // unique code counts per run
+  "per_run_unique_codes": [16, 16, 17],  // unique code counts per run
+  // C1-fix: frequency stability — tracks whether *count* is stable, not just presence
+  "frequency_unstable_codes": {
+    "0xC020462A": {"min": 3, "max": 7, "per_run": [3, 7, 5]}
+  },
+  "frequency_stable_codes": {
+    "0xC030462B": 2           // always fired exactly 2 times
+  },
+  "frequency_stability_score": 0.88  // fraction of codes with stable per-run count
 }
 
 The report is picked up automatically by build_schema.py when it exists.
@@ -93,15 +101,37 @@ def check(binary: str, step: str, runs: int = 3):
     non_det   = sorted(c for c, r in occ_rate.items() if r < 1.0)
     det_score = (len(all_codes) - len(non_det)) / len(all_codes) if all_codes else 1.0
 
+    # C1-fix: frequency stability — presence-only determinism_score misses cases
+    # where a code appears every run but fires a different number of times.
+    freq_stable: dict   = {}
+    freq_unstable: dict = {}
+    for code in sorted(all_codes):
+        counts_per_run = [per_run_counts[r].get(code, 0) for r in range(runs)]
+        if min(counts_per_run) == max(counts_per_run):
+            freq_stable[code] = counts_per_run[0]   # always fires exactly N times
+        else:
+            freq_unstable[code] = {
+                "min":     min(counts_per_run),
+                "max":     max(counts_per_run),
+                "per_run": counts_per_run,
+            }
+    freq_stab_score = (
+        (len(all_codes) - len(freq_unstable)) / len(all_codes) if all_codes else 1.0
+    )
+
     report = {
-        "step":                    step,
-        "binary":                  binary,
-        "runs":                    runs,
-        "checked":                 True,
-        "code_occurrence_rate":    occ_rate,
-        "non_deterministic_codes": non_det,
-        "determinism_score":       round(det_score, 4),
-        "per_run_unique_codes":    per_run_unique,
+        "step":                       step,
+        "binary":                     binary,
+        "runs":                       runs,
+        "checked":                    True,
+        "code_occurrence_rate":       occ_rate,
+        "non_deterministic_codes":    non_det,
+        "determinism_score":          round(det_score, 4),
+        "per_run_unique_codes":       per_run_unique,
+        # C1-fix additions
+        "frequency_unstable_codes":   freq_unstable,
+        "frequency_stable_codes":     freq_stable,
+        "frequency_stability_score":  round(freq_stab_score, 4),
     }
 
     out_path = os.path.join(parsed_dir, f"{step}_repro_report.json")
@@ -109,14 +139,23 @@ def check(binary: str, step: str, runs: int = 3):
 
     # ── summary ───────────────────────────────────────────────────────────────
     print(f"\n[repro] {step}: determinism_score={det_score:.2%}  "
-          f"non_det={len(non_det)}/{len(all_codes)} codes")
+          f"non_det={len(non_det)}/{len(all_codes)} codes  "
+          f"freq_stability={freq_stab_score:.2%}  "
+          f"freq_unstable={len(freq_unstable)}/{len(all_codes)} codes")
     if non_det:
-        print(f"  Non-deterministic codes:")
+        print(f"  Presence-non-deterministic codes:")
         for c in non_det:
             print(f"    {c}  occurrence_rate={occ_rate[c]:.2f}  "
                   f"({round(occ_rate[c]*runs)}/{runs} runs)")
     else:
-        print(f"  All codes deterministic across {runs} runs ✓")
+        print(f"  All codes present-deterministic across {runs} runs ✓")
+    if freq_unstable:
+        print(f"  Frequency-unstable codes (present every run but count varies):")
+        for c, info in freq_unstable.items():
+            print(f"    {c}  count range=[{info['min']}..{info['max']}]  "
+                  f"per_run={info['per_run']}")
+    else:
+        print(f"  All codes frequency-stable across {runs} runs ✓")
     print(f"  Report → {out_path}")
     return out_path
 

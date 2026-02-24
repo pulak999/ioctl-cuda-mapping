@@ -20,10 +20,12 @@ def _ioc(d, t, n, s):
     return ((d & 3) << 30) | ((s & 0x3FFF) << 16) | ((t & 0xFF) << 8) | (n & 0xFF)
 
 # Patterns are applied after stripping an optional leading PID (W6).
+# P3-fix: return value group accepts integer, hex pointer, or "?" (signal/unknown)
+_RET = r'(-?\d+|0x[0-9a-fA-F]+|\?)'
 IOCTL_IOC = re.compile(
     r'^ioctl\((\d+),\s*_IOC\(([^,]+),\s*(0x[0-9a-fA-F]+|\d+),\s*'
-    r'(0x[0-9a-fA-F]+|\d+),\s*(0x[0-9a-fA-F]+|\d+)\),\s*(.*)\)\s*=\s*(-?\d+)')
-IOCTL_HEX = re.compile(r'^ioctl\((\d+),\s*(0x[0-9a-fA-F]+),?\s*(.*)\)\s*=\s*(-?\d+)')
+    r'(0x[0-9a-fA-F]+|\d+),\s*(0x[0-9a-fA-F]+|\d+)\),\s*(.*)\)\s*=\s*' + _RET)
+IOCTL_HEX = re.compile(r'^ioctl\((\d+),\s*(0x[0-9a-fA-F]+),?\s*(.*)\)\s*=\s*' + _RET)
 OPENAT    = re.compile(r'^openat\([^,]*,\s*"(/dev/nvidia[^"]*)"[^)]*\)\s*=\s*(\d+)')
 CLOSE     = re.compile(r'^close\((\d+)\)')
 PID_STRIP = re.compile(r'^\d+\s+')   # matches "12345 " prefix from strace -f
@@ -64,9 +66,14 @@ def parse_lines(lines):
 
         m = IOCTL_IOC.match(s)
         if m:
-            fd   = m.group(1)
+            fd      = m.group(1)
+            dir_str = m.group(2).strip()
+            # P2-fix: warn instead of silently defaulting on unknown direction tokens
+            if dir_str not in DIR_MAP:
+                print(f"  WARNING [P2]: unknown _IOC direction {dir_str!r}, "
+                      f"defaulting to _IOC_NONE (0). Line: {s[:80]}", file=sys.stderr)
             code = _ioc(
-                DIR_MAP.get(m.group(2).strip(), 0),
+                DIR_MAP.get(dir_str, 0),
                 int(m.group(3), 0), int(m.group(4), 0), int(m.group(5), 0))
             ioctls.append({
                 "sequence_index": len(ioctls),
