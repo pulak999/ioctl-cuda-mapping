@@ -1,0 +1,67 @@
+{
+  "0xC00846D6": {
+    "name": "0xC00846D6",
+    "handle_offsets": [],
+    "sample_count": 2
+  },
+  "0xC00C46D1": {
+    "name": "0xC00C46D1",
+    "handle_offsets": [],
+    "sample_count": 1,
+    "output_handle_offset": 8
+  },
+  "0xC0104629": {
+    "name": "0xC0104629",
+    "handle_offsets": [
+      0,
+      4
+    ],
+    "sample_count": 4
+  },
+  "0xC020462A": {
+    "name": "0xC020462A",
+    "handle_offsets": [
+      0,
+      4,
+      20
+    ],
+    "sample_count": 178
+  },
+  "0xC020462B": {
+    "name": "0xC020462B",
+    "handle_offsets": [],
+    "sample_count": 2,
+    "output_handle_offset": 8
+  },
+  "0xC030462B": {
+    "name": "0xC030462B",
+    "handle_offsets": [
+      0,
+      4,
+      20
+    ],
+    "sample_count": 22
+  },
+  "0xC038464E": {
+    "name": "0xC038464E",
+    "handle_offsets": [
+      0
+    ],
+    "sample_count": 3,
+    "output_handle_offset": 32
+  },
+  "0xC90046C8": {
+    "name": "0xC90046C8",
+    "handle_offsets": [],
+    "sample_count": 2,
+    "output_handle_offset": 0
+  },
+  "0xC00446C9": {
+    "name": "0xC00446C9",
+    "handle_offsets": [],
+    "sample_count": 0,
+    "fd_offsets": [
+      0
+    ]
+  }
+}
