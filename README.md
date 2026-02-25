@@ -1,208 +1,190 @@
-# CUDA → ioctl Mapping
+# CUDA → ioctl Mapping & Replay
 
-This repository maps CUDA Driver API calls to their underlying Linux ioctl system calls. It traces which ioctl operations are triggered by each CUDA function call, helping understand what the NVIDIA driver does under the hood.
+Record every ioctl that `libcuda.so` sends to the NVIDIA kernel driver, then replay those ioctls **without** the CUDA library — proving we understand the driver protocol well enough to drive the GPU directly.
 
-## Overview
+## Quick Start
 
-The project uses a cumulative analysis approach: each test program includes all previous CUDA calls, allowing us to identify the **delta** (new ioctls) introduced by each step. The pipeline processes strace logs to extract, annotate, and report on ioctl sequences.
+```bash
+cd cuda-ioctl-map
 
-**Key Results:**
-- `cuInit`: Introduces 16 unique ioctl codes (initialization, device queries, UVM setup)
-- `cuDeviceGet`: No new ioctls (uses existing device handles)
-- `cuCtxCreate`: Introduces 15 new ioctl codes (context setup, channel registration, memory mapping)
+# End-to-end: compile a .cu file → capture its ioctls → replay them
+bash run.sh programs/matmul.cu
+```
 
-See `cuda-ioctl-map/CUDA_IOCTL_MAP.md` for the full report.
+That single command does three things:
+
+1. **Compile** — `nvcc` builds the binary
+2. **Capture** — runs the binary under `LD_PRELOAD` sniffer, writes a JSONL trace
+3. **Replay** — reads the trace, re-opens the same devices, re-issues every ioctl with handle patching
+
+Output looks like:
+```
+━━━ Compile ━━━
+  → programs/matmul
+
+━━━ Capture ━━━
+matmul: all OK — C[i][j] == 128 for all i,j
+  → sniffed/matmul.jsonl (834 lines, 781 ioctls)
+
+━━━ Replay ━━━
+DONE — 781/781 succeeded, 0 failed, 0 skipped
+```
+
+### Other ways to run
+
+```bash
+bash run.sh programs/matmul            # already compiled — capture + replay
+bash run.sh sniffed/matmul.jsonl       # already captured — replay only
+bash run.sh -v programs/matmul.cu      # verbose (DEBUG logging)
+bash run.sh -c programs/matmul.cu      # capture only, skip replay
+```
+
+## How Replay Works
+
+CUDA programs don't talk to the GPU directly. The user-space CUDA library (`libcuda.so`) communicates with the NVIDIA kernel driver through `ioctl()` system calls on device files like `/dev/nvidiactl`, `/dev/nvidia0`, and `/dev/nvidia-uvm`. Every CUDA API call — `cuInit`, `cuMemAlloc`, `cuLaunchKernel` — ultimately translates into a sequence of raw ioctls.
+
+### Capture (sniffing)
+
+An `LD_PRELOAD` library (`intercept/nv_sniff.c`) hooks the libc `open()` and `ioctl()` functions. For each ioctl to an NVIDIA device, it snapshots the argument buffer **before** and **after** the real call, then writes both as hex to a JSONL file:
+
+```json
+{"type":"open","seq":0,"path":"/dev/nvidiactl","ret":11}
+{"type":"ioctl","seq":1,"fd":11,"req":"0xC00846D6","sz":8,"before":"0000008000000000","after":"0000008000000000","ret":0}
+```
+
+The CUDA program runs normally — the sniffer is invisible to it.
+
+### Replay
+
+`replay/replay.py` **bypasses libcuda entirely**. It doesn't call any CUDA functions. It directly:
+
+1. **Opens the same device files** (`/dev/nvidiactl`, `/dev/nvidia0`, etc.)
+2. **Sends the exact same ioctl bytes** to the kernel driver
+
+The GPU kernel driver doesn't know or care whether the ioctls came from `libcuda.so` or from our replay tool — it processes them identically.
+
+### Handle patching
+
+The kernel driver assigns **opaque handle values** (like object IDs) when you create resources. These handles differ every run. Later ioctls reference those handles, so replay must **patch** captured handle values to the new live ones. `intercept/handle_offsets.json` tells the replay engine which byte offsets in each ioctl's buffer contain handles, and `replay/handle_map.py` does the remapping.
+
+### In summary
+
+```
+Normal execution:
+  Your code  →  libcuda.so  →  ioctl()  →  kernel driver  →  GPU
+
+Capture:
+  Your code  →  libcuda.so  →  [sniffer records before/after]  →  ioctl()  →  kernel driver  →  GPU
+
+Replay:
+  replay.py  →  ioctl()  →  kernel driver  →  GPU
+  (no libcuda, no CUDA API — just raw ioctls with patched handles)
+```
 
 ## Repository Structure
 
 ```
 cuda-ioctl-map/
-├── programs/          # Minimal CUDA test programs (.cu source files + compiled binaries)
-├── traces/            # Raw strace output logs (.log files) and diffs (.diff files)
-├── parsed/            # Structured JSON extracted from traces + reproducibility reports
-├── annotated/         # JSON with ioctl name/description annotations
-├── schema/            # Master mapping schema (cumulative analysis)
-├── lookup/            # Static lookup table for known ioctl codes
-├── baseline/          # Timestamped snapshots of analysis results
-├── parse_trace.py     # Extract ioctls from strace logs
-├── annotate_static.py # Add human-readable annotations from lookup table
-├── build_schema.py    # Aggregate annotated data into master mapping
-├── generate_report.py # Generate markdown report from schema
-├── check_reproducibility.py  # Run N times and check determinism (W9)
-└── CUDA_IOCTL_MAP.md  # Final human-readable report
+├── run.sh                 # Single entry point: compile → capture → replay
+│
+├── programs/              # CUDA test programs (.cu source + compiled binaries)
+│   ├── cu_init.cu         #   cuInit only
+│   ├── cu_device_get.cu   #   + cuDeviceGet
+│   ├── cu_ctx_create.cu   #   + cuCtxCreate
+│   ├── cu_mem_alloc.cu    #   + cuMemAlloc / cuMemFree
+│   ├── cu_module_load.cu  #   + cuModuleLoadData (PTX JIT)
+│   ├── cu_launch_null.cu  #   + cuLaunchKernel (no-op kernel)
+│   ├── cu_memcpy.cu       #   + cuMemcpyDtoH
+│   ├── vector_add.cu      #   + real kernel: C[i] = A[i] + B[i]
+│   ├── matmul.cu          #   + 128×128 matrix multiply (target milestone)
+│   └── Makefile
+│
+├── intercept/             # LD_PRELOAD ioctl sniffer
+│   ├── nv_sniff.c         #   hooks open/ioctl, records before/after hex
+│   ├── libnv_sniff.so     #   compiled shared library
+│   ├── handle_offsets.json #  which byte offsets hold handles per ioctl code
+│   ├── collect.sh         #   batch-capture all programs
+│   └── Makefile
+│
+├── sniffed/               # Captured JSONL traces (one per program)
+│   ├── cu_init.jsonl
+│   ├── cu_device_get.jsonl
+│   ├── cu_ctx_create.jsonl
+│   ├── cu_mem_alloc.jsonl
+│   ├── cu_module_load.jsonl
+│   ├── cu_launch_null.jsonl
+│   ├── cu_memcpy.jsonl
+│   ├── vector_add.jsonl
+│   └── matmul.jsonl
+│
+├── replay/                # Replay engines
+│   ├── replay.py          #   Python replay (main tool)
+│   ├── handle_map.py      #   FdMap, HandleMap, ReqSchema, load_schemas
+│   ├── replay.c           #   C replay (reference implementation)
+│   ├── handle_map.h       #   C handle map (header-only hash map)
+│   └── Makefile
+│
+├── tools/                 # Utilities
+│   ├── find_handle_offsets.py   # diff two captures to discover handle offsets
+│   ├── collect_two_runs.sh      # capture two cu_init runs for offset discovery
+│   ├── compare_snapshots.py     # compare driver state before/after replay
+│   └── snapshot_driver_state.sh # dump /proc/driver/nvidia state
+│
+├── lookup/                # Static ioctl code → name mapping
+│   └── ioctl_table.json
+│
+├── traces/                # Legacy strace logs
+├── parsed/                # Parsed strace JSON
+├── annotated/             # Annotated strace JSON
+├── schema/                # Master mapping schema
+├── baseline/              # Timestamped analysis snapshots
+└── validation/            # Replay validation scripts
 ```
 
-## How to Replicate Results
+## Prerequisites
 
-### Prerequisites
+- Linux with NVIDIA GPU and driver installed
+- CUDA toolkit (`nvcc`) — set `NVCC` env var if not at `/usr/local/cuda-12.5/bin/nvcc`
+- Python 3.10+
+- Access to `/dev/nvidia*` devices (world-readable on most setups; otherwise run as root)
 
-- Linux machine with CUDA installed
-- Tools: `nvcc`, `strace`, `python3`
-- NVIDIA GPU with driver installed
-- Access to `/dev/nvidia*` devices (may require appropriate permissions)
+## Test Programs (ladder)
 
-### Step 1: Collect Traces
+Each program builds on the previous, progressively exercising more of the driver:
 
-For each CUDA call sequence, compile and trace the program:
+| Program | CUDA APIs | Ioctls | Replay |
+|---------|-----------|--------|--------|
+| `cu_init` | cuInit | 230 | ✅ 0 failed |
+| `cu_device_get` | + cuDeviceGet | 230 | ✅ 0 failed |
+| `cu_ctx_create` | + cuCtxCreate | 575 | ✅ 0 failed |
+| `cu_mem_alloc` | + cuMemAlloc/Free | 781 | ✅ 0 failed |
+| `cu_module_load` | + cuModuleLoadData (PTX) | 776 | ✅ 0 failed |
+| `cu_launch_null` | + cuLaunchKernel | 776 | ✅ 0 failed |
+| `cu_memcpy` | + cuMemcpyDtoH | 781 | ✅ 0 failed |
+| `vector_add` | + real compute kernel | 781 | ✅ 0 failed |
+| **matmul** | **+ 128×128 matrix multiply** | **781** | **✅ 0 failed** |
+
+## Advanced Usage
+
+### Discover handle offsets for a new ioctl
+
+If replay fails on a new program, you likely need to update `intercept/handle_offsets.json` with the handle byte offsets for the failing ioctl code. Run the program twice and diff:
 
 ```bash
-cd cuda-ioctl-map
+# Capture two independent runs
+NV_SNIFF_LOG=sniffed/my_prog_a.jsonl LD_PRELOAD=./intercept/libnv_sniff.so ./programs/my_prog
+NV_SNIFF_LOG=sniffed/my_prog_b.jsonl LD_PRELOAD=./intercept/libnv_sniff.so ./programs/my_prog
 
-# Example: cu_init
-nvcc -lcuda programs/cu_init.cu -o programs/cu_init
-strace -f -e trace=ioctl,openat,close \
-       -o traces/cu_init.log \
-       ./programs/cu_init
+# Discover handle offsets by diffing the two runs
+python3 tools/find_handle_offsets.py sniffed/my_prog_a.jsonl sniffed/my_prog_b.jsonl intercept/handle_offsets.json
+
+# Now replay should work
+bash run.sh sniffed/my_prog.jsonl
 ```
 
-**Note:** The `-f` flag traces forked processes (required for multi-process CUDA programs). The minimal trace set `ioctl,openat,close` is sufficient for ioctl analysis. For more comprehensive tracing, you can also include `mmap,munmap,read,write`.
-
-
-**Cumulative sequence** (each program includes all previous calls):
-1. `cu_init.cu` → `cuInit(0)`
-2. `cu_device_get.cu` → `cuInit` → `cuDeviceGet`
-3. `cu_ctx_create.cu` → `cuInit` → `cuDeviceGet` → `cuCtxCreate`
-4. `cu_ctx_destroy.cu` → `cuInit` → `cuDeviceGet` → `cuCtxCreate` → `cuCtxDestroy`
-5. (Additional steps: `cuMemAlloc`, `cuMemcpyHtoD`, `cuLaunchKernel`, etc.)
-
-### Step 2: Parse Traces
-
-Extract ioctl calls from strace logs and convert to structured JSON:
+### Use the C replay instead
 
 ```bash
-python3 parse_trace.py traces/cu_init.log traces/cu_device_get.log traces/cu_ctx_create.log
+make -C replay
+./replay/replay sniffed/matmul.jsonl
 ```
-
-This will:
-- Build a file descriptor → device path map
-- Extract all ioctl calls with request codes
-- Tag which ioctl codes are "new" compared to previous steps
-- Output JSON files to `parsed/` directory
-
-### Step 3: Annotate ioctls
-
-Enrich parsed data with human-readable names and descriptions:
-
-```bash
-python3 annotate_static.py parsed/cu_init.json parsed/cu_device_get.json parsed/cu_ctx_create.json
-```
-
-This uses `lookup/ioctl_table.json` to map ioctl codes to:
-- Name (e.g., `NV_ESC_RM_ALLOC`)
-- Description
-- Phase (initialization, memory allocation, etc.)
-- Confidence level (high/medium/low/none)
-
-**Confidence system:**
-- **High**: Ground truth from NVIDIA headers
-- **Medium**: Likely correct, but may need verification
-- **Low**: Uncertain, flagged for review ⚠
-- **None**: Unknown code, requires manual investigation ⚠
-
-Unknown codes and low-confidence entries are flagged for manual review. Outputs go to `annotated/` directory.
-
-### Step 4: Check Reproducibility (Optional)
-
-Verify that ioctl sequences are deterministic across multiple runs:
-
-```bash
-python3 check_reproducibility.py programs/cu_init cu_init --runs 5
-python3 check_reproducibility.py programs/cu_device_get cu_device_get --runs 5
-python3 check_reproducibility.py programs/cu_ctx_create cu_ctx_create --runs 5
-```
-
-This will:
-- Run each binary N times under strace
-- Parse each trace independently
-- Compute occurrence rates for each ioctl code
-- Generate reproducibility reports in `parsed/<step>_repro_report.json`
-- Flag non-deterministic codes (codes that don't appear in every run)
-
-The reports are automatically picked up by `build_schema.py` and included in the final mapping.
-
-### Step 5: Build Schema and Generate Report
-
-Aggregate all annotated data and generate the final report:
-
-```bash
-python3 build_schema.py
-python3 generate_report.py
-```
-
-This creates:
-- `schema/master_mapping.json` - Complete structured mapping with:
-  - **Code-set delta**: New ioctl codes introduced by each step
-  - **Event-level delta**: Frequency changes for existing codes
-  - **Confidence summary**: Breakdown by confidence tier
-  - **Reproducibility data**: Determinism scores and non-deterministic codes
-- `CUDA_IOCTL_MAP.md` - Human-readable markdown report
-
-### Quick Start (All Steps)
-
-If you have existing trace files, run the full pipeline:
-
-```bash
-# Parse all traces
-python3 parse_trace.py traces/*.log
-
-# Annotate all parsed files
-python3 annotate_static.py parsed/*.json
-
-# (Optional) Check reproducibility for key steps
-python3 check_reproducibility.py programs/cu_init cu_init --runs 3
-python3 check_reproducibility.py programs/cu_ctx_create cu_ctx_create --runs 3
-
-# Build final schema and report
-python3 build_schema.py
-python3 generate_report.py
-```
-
-## Understanding the Output
-
-- **`parsed/*.json`**: Raw ioctl extraction with device mapping and sequence indices
-- **`parsed/<step>_repro_report.json`**: Reproducibility analysis (if checked) with:
-  - Occurrence rates per ioctl code
-  - Non-deterministic codes list
-  - Determinism score (fraction of codes that appear in every run)
-- **`annotated/*.json`**: Enriched with names/descriptions from lookup table, confidence levels
-- **`schema/master_mapping.json`**: Cumulative mapping with:
-  - **Code-set delta**: New unique ioctl codes introduced by each step
-  - **Event-level delta**: Per-code frequency changes (how many times each code appears)
-  - **Confidence summary**: Counts by confidence tier (high/medium/low/none)
-  - **Reproducibility**: Determinism metrics and non-deterministic codes
-- **`CUDA_IOCTL_MAP.md`**: Human-readable report with tables, statistics, and warnings for low-confidence/unknown codes
-
-### Delta Metrics Explained
-
-The analysis tracks two types of deltas per CUDA call:
-
-1. **Code-set delta**: Which new ioctl request codes appear for the first time
-   - Example: `cuCtxCreate` introduces 15 new codes not seen in previous steps
-
-2. **Event-level delta**: How the frequency of existing codes changes
-   - Example: A code that appeared 3 times in `cuInit` might appear 5 times after `cuCtxCreate` (delta: +2)
-
-## Adding New CUDA Calls
-
-1. Create a new `.cu` file in `programs/` (cumulatively including previous calls)
-2. Compile: `nvcc -lcuda programs/new_call.cu -o programs/new_call`
-3. Trace: `strace -f -e trace=ioctl,openat,close -o traces/new_call.log ./programs/new_call`
-   - Note: Use `-f` flag to trace forked processes (W6)
-4. Run through the pipeline:
-   ```bash
-   python3 parse_trace.py traces/new_call.log
-   python3 annotate_static.py parsed/new_call.json
-   python3 check_reproducibility.py programs/new_call new_call --runs 3  # Optional
-   python3 build_schema.py
-   python3 generate_report.py
-   ```
-
-## Notes
-
-- The lookup table (`lookup/ioctl_table.json`) is seeded from NVIDIA's open-source driver headers
-- Unknown ioctl codes can be researched using NVIDIA's [open-gpu-kernel-modules](https://github.com/NVIDIA/open-gpu-kernel-modules) repository
-- The cumulative approach ensures we see the true delta introduced by each CUDA call
-- **Reproducibility checking (W9)**: Some ioctl codes may appear non-deterministically across runs (e.g., due to timing, device state, or driver internals). The reproducibility checker helps identify these cases.
-- **File descriptor tracking (W2)**: The parser maintains a temporal FD→device map, correctly handling FD reuse after `close()` calls
-- **Multi-process support (W6)**: The parser handles both single-process and multi-process (`strace -f`) output by stripping PID prefixes
-- **Baseline snapshots**: The `baseline/` directory can store timestamped snapshots of analysis results for comparison over time
