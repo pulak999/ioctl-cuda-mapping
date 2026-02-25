@@ -23,6 +23,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <errno.h>
+#include <limits.h>
 #include <sys/ioctl.h>
 
 #include "handle_map.h"
@@ -310,18 +311,43 @@ int main(int argc, char *argv[])
 
     const char *capture_path = argv[1];
 
-    /* Derive default path for handle_offsets.json */
-    char default_offsets[1024];
+    /* Derive default path for handle_offsets.json and the sentinel file.
+     * Both are relative to the project root, which is one level above the
+     * capture file's directory (e.g. sniffed/../ == cuda-ioctl-map/).
+     * We use realpath() to produce an absolute path for the sentinel so that
+     * replay.ready is always written to the project root regardless of the
+     * process's CWD when replay is invoked.                                 */
+    char default_offsets[PATH_MAX];
+    char sentinel_path[PATH_MAX + 32];   /* +32: headroom for "/replay.ready" suffix */
     {
-        char tmp[1024];
+        char tmp[PATH_MAX];
         strncpy(tmp, capture_path, sizeof(tmp) - 1);
-        tmp[sizeof(tmp)-1] = '\0';
-        /* Find last '/' to strip filename */
+        tmp[sizeof(tmp) - 1] = '\0';
+        /* Strip filename to get capture directory (e.g. "sniffed"). */
         char *slash = strrchr(tmp, '/');
         if (slash) *slash = '\0'; else strcpy(tmp, ".");
-        /* Go one level up from sniffed/ to root, then into intercept/ */
+
+        /* Default offsets path: capture_dir/../intercept/handle_offsets.json */
         snprintf(default_offsets, sizeof(default_offsets),
                  "%s/../intercept/handle_offsets.json", tmp);
+
+        /* Sentinel: resolve capture_dir/.. to an absolute project root so the
+         * path is independent of CWD.  Fall back to a CWD-relative path if
+         * realpath fails (e.g. capture file in an unusual location).        */
+        char candidate[PATH_MAX];
+        char resolved[PATH_MAX];
+        snprintf(candidate, sizeof(candidate), "%s/..", tmp);
+        if (realpath(candidate, resolved)) {
+            snprintf(sentinel_path, sizeof(sentinel_path),
+                     "%s/replay.ready", resolved);
+        } else {
+            /* Fallback preserves the original behaviour. */
+            snprintf(sentinel_path, sizeof(sentinel_path), "replay.ready");
+            fprintf(stderr,
+                    "[replay] WARNING: realpath(%s) failed (%s); "
+                    "sentinel will be written relative to CWD\n",
+                    candidate, strerror(errno));
+        }
     }
     const char *offsets_path = (argc >= 3) ? argv[2] : default_offsets;
 
@@ -344,6 +370,7 @@ int main(int argc, char *argv[])
     int total   = 0;
     int ok      = 0;
     int failed  = 0;
+    int skipped = 0;
 
     /* ── Process records in seq order ── */
     while (fgets(line, LINE_BUF_SZ, cap)) {
@@ -406,7 +433,7 @@ int main(int argc, char *argv[])
             printf("[%04ld] req=0x%08X  SKIP (fd %d not mapped)\n",
                    seq_val, req, orig_fd);
             total++;
-            failed++;
+            skipped++;
             continue;
         }
 
@@ -501,15 +528,25 @@ int main(int argc, char *argv[])
 
     /* ── Summary ── */
     printf("\n");
-    printf("DONE — %d/%d succeeded, %d failed\n", ok, total, failed);
+    printf("DONE — %d/%d succeeded, %d failed, %d skipped\n",
+           ok, total, failed, skipped);
     printf("[handle_map] final state: %u entries\n", hmap.count);
     if (hmap.count <= 32)
         hm_dump(&hmap);
 
-    /* Write sentinel file so run_validation.sh knows replay finished */
+    /* Write sentinel file so run_validation.sh knows replay finished.
+     * sentinel_path is an absolute path derived from the capture file location,
+     * so this works correctly regardless of the process's CWD at invocation.  */
     {
-        FILE *sf = fopen("replay.ready", "w");
-        if (sf) fclose(sf);
+        FILE *sf = fopen(sentinel_path, "w");
+        if (sf) {
+            fclose(sf);
+            printf("[replay] sentinel written: %s\n", sentinel_path);
+        } else {
+            fprintf(stderr,
+                    "[replay] WARNING: could not write sentinel %s: %s\n",
+                    sentinel_path, strerror(errno));
+        }
     }
 
     return (failed == 0) ? 0 : 1;

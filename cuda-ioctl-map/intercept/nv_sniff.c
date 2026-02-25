@@ -78,7 +78,10 @@ static void untrack_fd(int fd) {
 
 static int fd_is_nvidia(int fd) {
     if (fd < 0 || fd >= MAX_FDS) return 0;
-    return nv_fd_active[fd];
+    pthread_mutex_lock(&lock);
+    int active = nv_fd_active[fd];
+    pthread_mutex_unlock(&lock);
+    return active;
 }
 
 /* Caller must hold lock when calling this. */

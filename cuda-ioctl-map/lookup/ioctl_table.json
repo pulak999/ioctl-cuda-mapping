@@ -8,7 +8,7 @@
   "0xC00846D6": {"name":"NV_ESC_CARD_INFO","description":"Query basic GPU card information / card presence check","phase":"device query","confidence":"medium","source":"nv-ioctl-numbers.h"},
   "0xC0104629": {"name":"NV_ESC_RM_CONTROL","description":"Execute an RM control command on a GPU object (query/set properties)","phase":"object control","confidence":"high","source":"nv-ioctl-numbers.h"},
   "0xC01046CE": {"name":"NV_ESC_CHECK_VERSION_STR","description":"Check driver version string compatibility between userspace and kernel","phase":"initialization","confidence":"high","source":"nv-ioctl-numbers.h"},
-  "0xC030462B": {"name":"NV_ESC_RM_ALLOC (large)","description":"Allocate RM object with larger parameter struct","phase":"object allocation","confidence":"medium","source":"nv-ioctl-numbers.h variant"},
+  "0xC030462B": {"name":"NV_ESC_RM_ALLOC (large)","description":"Allocate RM object with larger parameter struct","phase":"object allocation","confidence":"high","source":"nv-ioctl-numbers.h variant"},
   "0xC038464E": {"name":"NV_ESC_RM_VID_HEAP_CONTROL","description":"Video heap (framebuffer/BAR1) memory management control","phase":"memory management","confidence":"high","source":"nv-ioctl-numbers.h"},
   "0xC23046D7": {"name":"NV_ESC_NUMA_INFO","description":"Query NUMA topology information for GPU memory","phase":"device query / initialization","confidence":"medium","source":"nv-ioctl-numbers.h"},
   "0x00000046": {"name":"NV_ESC_CARD_INFO (simple)","description":"Query GPU card info (simple form without size encoding)","phase":"device query","confidence":"medium","source":"observed in cuInit trace"},
