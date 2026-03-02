@@ -2,6 +2,25 @@
 
 Record every ioctl that `libcuda.so` sends to the NVIDIA kernel driver, then replay those ioctls **without** the CUDA library — proving we understand the driver protocol well enough to drive the GPU directly.
 
+```mermaid
+flowchart LR
+    subgraph capture["Capture"]
+        A[CUDA program] --> B[libcuda.so]
+        B --> C[ioctl to /dev/nvidia*]
+        C --> D[Sniffer logs trace]
+    end
+    D --> E[JSONL file]
+    subgraph replay["Replay"]
+        E --> F[Replay tool]
+        F --> G[Patch handles]
+        G --> H[ioctl to /dev/nvidia*]
+    end
+    H --> I[GPU driver]
+    C --> I
+```
+
+*We record every ioctl from a CUDA program, then replay the same ioctls without using CUDA—proving we understand the driver protocol.*
+
 ## Quick Start
 
 ```bash

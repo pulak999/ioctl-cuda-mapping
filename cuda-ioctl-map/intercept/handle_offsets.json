@@ -13,10 +13,9 @@
   "0xC0104629": {
     "name": "0xC0104629",
     "handle_offsets": [
-      0,
-      4
+      0
     ],
-    "sample_count": 4
+    "sample_count": 111
   },
   "0xC020462A": {
     "name": "0xC020462A",
@@ -25,7 +24,7 @@
       4,
       20
     ],
-    "sample_count": 178
+    "sample_count": 296
   },
   "0xC020462B": {
     "name": "0xC020462B",
@@ -33,21 +32,33 @@
     "sample_count": 2,
     "output_handle_offset": 8
   },
+  "0xC020464F": {
+    "name": "0xC020464F",
+    "handle_offsets": [
+      0,
+      16
+    ],
+    "sample_count": 27
+  },
+  "0xC028465E": {
+    "name": "0xC028465E",
+    "handle_offsets": [],
+    "sample_count": 1
+  },
   "0xC030462B": {
     "name": "0xC030462B",
     "handle_offsets": [
       0,
-      4,
       20
     ],
-    "sample_count": 22
+    "sample_count": 116
   },
   "0xC038464E": {
     "name": "0xC038464E",
     "handle_offsets": [
       0
     ],
-    "sample_count": 3,
+    "sample_count": 30,
     "output_handle_offset": 32
   },
   "0xC90046C8": {

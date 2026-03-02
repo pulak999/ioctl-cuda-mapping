@@ -80,7 +80,7 @@ def load_schemas(path: Path) -> dict[int, "ReqSchema"]:
     """
     path = Path(path)
     if not path.exists():
-        log.info("load_schemas: %s not found — no handle patching", path)
+        log.warning("load_schemas: %s not found — no handle patching", path)
         return {}
 
     with open(path) as f:
