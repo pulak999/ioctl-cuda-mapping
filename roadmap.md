@@ -435,3 +435,138 @@ The generalisation is successful when:
 4. **Does the spec format need to express sharing policies** (AvA-style
    — "this buffer is caller-owned, this one is shared")? Likely yes
    for codegen, but can be deferred until phase 5 forces the question.
+
+   Here is the revised `roadmap.md`, updated to incorporate the control/data plane split, the `SIGSEGV` doorbell trap, fuzzer containment, and the strict dichotomy between the offline harness (where accuracy is everything) and the emitted runtime (where latency is everything).
+
+***
+
+# Roadmap — Generalising `ioctl-cuda-mapping` into a Trace-Driven Virtualization Toolkit
+
+## Date: 2026-04-15
+
+## Purpose
+
+This document describes the target architecture for turning the existing
+`ioctl-cuda-mapping` repo into a **device-agnostic, trace-driven toolkit** that produces machine-readable specifications of driver protocols (both control-plane `ioctl`s and data-plane memory maps). 
+
+It consumes those specifications to drive replay, virtualization stubs, and policy mediation.
+
+---
+
+## The Main Idea: The Offline/Online Dichotomy
+
+We are **not building a GPU virtualization layer**. We are building an **offline harness** that produces virtualization layers from traces. 
+
+This architecture demands a strict separation of concerns:
+1.  **The Offline Harness (The Generator):** Performance and latency do not matter here. A trace execution can take 1,000x longer than native execution. The sole objective is **100% protocol accuracy** and perfect state capture.
+2.  **The Emitted Runtime (The Product):** The generated guest stubs, host daemon, and policy mediator. Here, **latency is existential**. The daemon must not rely on slow traps (like `SIGSEGV`) for steady-state data-plane execution. It relies entirely on the precise memory layouts and semantics defined in the `spec.json` to achieve bare-metal-adjacent latency.
+
+The spec file is the fixed point. A new driver version is a re-run of the harness against a fresh corpus. A new accelerator (AMD, Intel, TPU) is a new corpus.
+
+### The Harness Loop (Updated)
+
+```text
+   ┌──────────────────────────────────────────────────────────────┐
+   │                    OFFLINE HARNESS                           │
+   │                                                              │
+   │  pick a program  ──►  run inside VFIO VM ──► sniff ioctl &   │
+   │         ▲             (Blast Containment)    doorbell traps  │
+   │         │                                          │         │
+   │   mutate inputs                                    ▼         │
+   │   / pick next                            inference engine    │
+   │   program                                (Shift-and-Test)    │
+   │         ▲                                          │         │
+   │         │                                      spec delta    │
+   │         │                                          │         │
+   │  validate: replay                                  ▼         │
+   │  trace via generic                       update spec.json    │
+   │  interpreter     ◄─────────────────────────────────┘         │
+   │         │                                                    │
+   │         ▼                                                    │
+   │  disagreements / low-confidence fields                       │
+   │         │                                                    │
+   │         ▼                                                    │
+   │  escalate: ask LLM / human prior                             │
+   └──────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Component Breakdown & Technical Strategy
+
+### 1. Generic Sniffer (`intercept/`) — The Control & Data Plane Trap
+
+**Target:** Capture both synchronous setup (`ioctl`) and asynchronous command submissions (`mmap`).
+
+* **Control Plane (`ioctl`):** Intercept via `LD_PRELOAD` or kernel-space hooks. Device filter becomes a runtime-configurable glob list (`NV_SNIFF_DEVICES=/dev/nvidia*:/dev/kfd`).
+* **Data Plane (The Doorbell Trap):** Modern drivers bypass the kernel for execution by writing to memory-mapped ring buffers. The sniffer must capture these.
+    * Hook `mmap` calls. Allocate a userspace shadow buffer.
+    * Use `mprotect(PROT_READ)` to remove write permissions from the true GPU queue.
+    * When the userspace driver submits a command, it triggers a `SIGSEGV`.
+    * The signal handler catches the fault, decodes the instruction pointer to log the exact address and byte payload (the "Data Plane Trace Event"), unprotects the page to let the write succeed, and reprotects it.
+    * *Note: Recent literature (e.g., KRYPTON, USENIX ATC '25) validates `mprotect` for kernel-space GPU access control. We repurpose it here purely for offline tracing.*
+
+### 2. Schema Inference Engine (`infer/`) & Ephemeral Fuzzer
+
+Given N independent runs, classify each byte range.
+
+* **Blast-Radius Containment:** The mutation driver *will* cause kernel panics when fuzzing sizes and grid dimensions. The mutation loop runs inside an **ephemeral VFIO VM** with PCIe passthrough. On kernel panic, the host drops the VM, reverts to a microsecond-old snapshot, and continues.
+* **Pointer Validation (Shift-and-Test):** To avoid false positives where compiled shader binaries look like valid `/proc/self/maps` addresses:
+    * When inference suspects a pointer, the mutation engine allocates a new dummy buffer at a different address.
+    * It overwrites the suspected pointer with the dummy address.
+    * If the driver accepts the `ioctl` and writes output to the dummy buffer, it is a confirmed pointer. Otherwise, it is an inline constant/hash.
+
+| Classification   | Detection heuristic                                             |
+|------------------|-----------------------------------------------------------------|
+| **handle** | Changes across runs; values cluster; used in later ioctls.      |
+| **pointer** | Matches `maps`, verified via **Shift-and-Test** mutation.       |
+| **fd** | Small int (< 1024) matching an open fd at capture time.         |
+| **size/length** | Correlates with adjacent buffer length (requires fuzzing).      |
+| **inline-value** | Stable across runs, or varies without above signals.            |
+| **output-region**| Bytes where `after` differs from `before` in the same call.     |
+
+Output: `spec/<driver>.spec.json` containing highly-confident, field-by-field schemas.
+
+### 3. Stub/Daemon Codegen (`codegen/`) — The Latency-Critical Runtime
+
+The JSON spec emits the C/Rust code for the production virtualization layer (guest stub + host daemon).
+
+* **No runtime introspection:** The generated code does not guess. It flattens structs, translates handles, and copies sizes exactly as dictated by the spec.
+* **Data Plane Passthrough:** Because the offline harness accurately mapped the memory layout, the emitted host daemon can safely map the user-mode queues directly into the guest VM. The host daemon only mediates the control plane (`ioctl`), keeping steady-state execution latency virtually identical to bare metal.
+
+### 4. Policy Mediator (`mediator/`) 
+
+Sits in the host daemon. Enforces per-tenant SLAs, memory limits, and rate limits. Relies on the spec's `size` and `pointer` classifications to securely audit payloads before forwarding them to the physical driver.
+
+---
+
+## Migration Plan
+
+### Phase 0 — Freeze the Baseline
+* Document existing JSONL schema. Tag current repo as `v0-nvidia-only`.
+
+### Phase 1 — Generalise Control Plane & Add Data Plane Trap
+* Replace `/dev/nvidia*` filter with a glob list. Add `path`, `maps`, and `fd_table` tracking.
+* Implement the `mprotect`/`SIGSEGV` doorbell trap for memory-mapped queues.
+* Verify existing CUDA ladder replays byte-for-byte. 
+
+### Phase 2 — Fuzzer Containment & Inference v1
+* Set up KVM/QEMU VFIO automated snapshot/revert infrastructure.
+* Port `find_handle_offsets.py` to `infer/classify.py`.
+* Implement `Shift-and-Test` validation for pointer detection.
+* **Acceptance:** Emitted `spec.json` matches handwritten legacy tables with >95% agreement.
+
+### Phase 3 — Generic Replay
+* Rewrite `replay.py` as a dumb spec interpreter. Drop handwritten offset tables entirely.
+
+### Phase 4 — Codegen & Latency Auditing
+* Implement Jinja templates for guest stub / host daemon.
+* Target: Regenerate enough code to handle the `cuInit` sequence and a basic matrix multiplication.
+* **Acceptance:** Benchmark the generated daemon against bare-metal. Control-plane overhead must be bounded; data-plane overhead must be zero (via proper shared-memory mapping derived from the spec).
+
+### Phase 5 — The Second Accelerator (ROCm)
+* Capture an AMD ROCm program. Run inference. 
+* If the system can generate a working ROCm virtualization stub without manual C code, the research thesis is proven.
+
+### Phase 6 — Policy Mediator
+* Implement memory and throughput limiters utilizing the parsed struct sizes.
