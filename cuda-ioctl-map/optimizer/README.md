@@ -12,9 +12,20 @@ optional GEPA loop over the harness YAML.
 
 ## Python dependencies
 
+With **pip** (if available on your Python):
+
 ```bash
 cd cuda-ioctl-map
 python3 -m pip install -r optimizer/requirements.txt
+```
+
+With **uv** (recommended when system Python has no `pip`):
+
+```bash
+cd cuda-ioctl-map
+uv venv optimizer/.venv --python 3.10
+uv pip install -p optimizer/.venv -r optimizer/requirements.txt
+optimizer/.venv/bin/python optimizer/evaluate.py --harness optimizer/harness.min.json --dry-run
 ```
 
 ## Deterministic evaluator
@@ -42,13 +53,21 @@ Artifacts: `optimizer/runs/<run_id>/<stem>/` contains paired traces and
 
 ## GEPA smoke
 
+GEPA uses LiteLLM for the reflection model. Set credentials for your chosen
+provider (example: `OPENAI_API_KEY` for OpenAI). Then:
+
 ```bash
 cd cuda-ioctl-map
-python3 optimizer/gepa_runner.py --seed optimizer/harness.yaml --max-metric-calls 15
+# use the same interpreter that has gepa + litellm installed, e.g.:
+optimizer/.venv/bin/python optimizer/gepa_runner.py --seed optimizer/harness.yaml --max-metric-calls 15
 ```
 
-This treats the entire harness YAML as the optimizable artifact. Start with a
-small `--max-metric-calls` budget; each call runs the full live pipeline.
+This treats the entire harness YAML as the optimizable artifact. Each metric
+call runs the full live evaluator (capture → infer → baseline vs candidate
+replay). Without an API key, iteration 0 can still score the seed harness;
+reflection may fail until keys are configured.
+
+Recorded results for this repo: [VALIDATION.md](../../VALIDATION.md).
 
 ## Notes
 

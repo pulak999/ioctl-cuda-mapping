@@ -1,3 +1,26 @@
+## [2026-05-09] plan-v1 validation (live + GEPA partial)
+
+### What ran
+
+- Unit tests under `cuda-ioctl-map/optimizer/tests/`: PASS.
+- Live evaluator on `programs/cu_init.cu` and `programs/cu_mem_alloc.cu`: PASS
+  (see [VALIDATION.md](VALIDATION.md)).
+- GEPA `gepa_runner.py` with `uv`-managed `optimizer/.venv`: evaluator scored
+  seed harness; reflection blocked without `OPENAI_API_KEY` (litellm); see
+  VALIDATION.md.
+
+### Files changed (this follow-up)
+
+| File | What changed |
+|------|--------------|
+| `VALIDATION.md` | New: commands and pass/fail notes. |
+| `cuda-ioctl-map/optimizer/harness.smoke2.yaml` | New: smoke-2 harness for `cu_mem_alloc.cu`. |
+| `cuda-ioctl-map/optimizer/requirements.txt` | Add `litellm`; pin `gepa` floor. |
+| `cuda-ioctl-map/optimizer/.gitignore` | Ignore `optimizer/.venv/`. |
+| `cuda-ioctl-map/optimizer/README.md` | uv venv install, GEPA env notes, link to VALIDATION.md. |
+
+---
+
 ## [2026-05-09] GEPA Optimizer Harness (plan-v1)
 
 ### Features Implemented

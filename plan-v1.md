@@ -131,3 +131,6 @@ flowchart TD
   `optimize_anything` with a bounded smoke configuration.
 - Document live prerequisites and run live smoke validations on small and larger
   CUDA programs.
+
+**Validation log:** after running the bullets above, record commands and
+outcomes in [VALIDATION.md](VALIDATION.md) (checked in for this repo).
