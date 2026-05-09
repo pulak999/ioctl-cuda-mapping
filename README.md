@@ -35,7 +35,8 @@ bash run.sh programs/matmul.cu
 For the live evaluator and optional GEPA loop over `harness.yaml`, see
 [cuda-ioctl-map/optimizer/README.md](cuda-ioctl-map/optimizer/README.md) and
 [plan-v1.md](plan-v1.md). Latest smoke results:
-[VALIDATION.md](VALIDATION.md).
+[VALIDATION.md](VALIDATION.md). **Dedicated user / local model server:**
+[AGENT_SERVER_SETUP.md](AGENT_SERVER_SETUP.md).
 
 That single command does three things:
 
