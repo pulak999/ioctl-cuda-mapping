@@ -32,6 +32,19 @@ opens.
 - GEPA driver (optional): `python3 optimizer/gepa_runner.py`
 - Python deps: `pip install -r optimizer/requirements.txt`
 - **plan-v2 smoke:** `cd cuda-ioctl-map && SKIP_LIVE=1 ./optimizer/scripts/smoke_plan_v2.sh`
+  (Phase 0 only). Full plan-v2 (live evaluate + optional local LLM + GEPA) is
+  [plan-v2.md](plan-v2.md); results belong in [VALIDATION.md](VALIDATION.md).
+
+**`smoke_plan_v2.sh` environment (see plan-v2 “Automation” table):**
+
+| Variable | Role |
+|----------|------|
+| `SKIP_LIVE=1` | Unittest + dry-run + precondition hints only. |
+| `OPT_PY` | Interpreter for unittest / `evaluate.py` (default `python3`). Use `optimizer/.venv/bin/python` if system Python lacks deps. |
+| `OPT_VENV_PY` | Interpreter for `gepa_runner.py` (defaults to `.venv` if present). |
+| `VLLM_API_BASE` | e.g. `http://127.0.0.1:8000/v1` — after live evaluate, curls `…/models`. |
+| `GEPA_REFLECTION_MODEL` | e.g. `openai/<id>` — with `VLLM_API_BASE`, runs GEPA reflection. |
+| `GEPA_MAX_METRIC_CALLS`, `GEPA_API_KEY` | Optional; see script. |
 
 ## Conventions
 

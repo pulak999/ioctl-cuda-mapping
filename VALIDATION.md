@@ -87,3 +87,33 @@ use the script **without** `SKIP_LIVE=1` for Phase 4, and export
 `VLLM_API_BASE` + `GEPA_REFLECTION_MODEL` for Phases 2–3. Append a short row
 here with host SHA, vLLM version, and whether reflection succeeded when you
 complete that run.
+
+### Phase 4 (live evaluate) — dev clone, 2026-05-09
+
+**Host:** shared login node (groups `student`, `rcs`); **GPUs:** three
+NVIDIA TITAN RTX (`nvidia-smi -L`). **Not** a throwaway under
+`$HOME/ioctl-agent-scratch` (plan Phase 1); same tree as ongoing development.
+
+**Commit:** `ecfc683271c7c8e13b5ee55777cb9cdfa9cf6ab2`.
+
+**Command:**
+
+```bash
+cd cuda-ioctl-map
+./optimizer/scripts/smoke_plan_v2.sh   # SKIP_LIVE unset — runs Phase 0 + 4
+```
+
+**Result:** **PASS** — after unittest + dry-run, both live runs reported
+`"ok": true`:
+
+- `optimizer/evaluate.py --harness optimizer/harness.yaml` — `cu_init`:
+  baseline/candidate `230/230 succeeded, 0 failed, 0 skipped`; aggregate score
+  `0.778…` (offset list diff vs baseline expected when replay passes).
+- `optimizer/evaluate.py --harness optimizer/harness.smoke2.yaml` —
+  `cu_mem_alloc`: `781/781 succeeded, 0 failed, 0 skipped` for baseline and
+  candidate.
+
+**Wall time:** ~20 s end-to-end for this script run (includes captures).
+
+**Phases 2–3:** not run (`VLLM_API_BASE` unset); vLLM version N/A. **GEPA
+reflection:** not exercised in this run.

@@ -1,3 +1,20 @@
+## [2026-05-09] plan-v2 Phase 4 live smoke (dev clone)
+
+### What ran
+
+- Full `./optimizer/scripts/smoke_plan_v2.sh` from `cuda-ioctl-map/` (no
+  `SKIP_LIVE`): unittest, dry-run, live `evaluate.py` on `harness.yaml` and
+  `harness.smoke2.yaml`. Phases 2–3 skipped (no `VLLM_API_BASE`).
+
+### Files changed
+
+| File | What changed |
+|------|-------------|
+| [VALIDATION.md](VALIDATION.md) | Appended plan-v2 Phase 4 evidence (SHA, host, pass). |
+| [TODO.md](TODO.md) | Mark Phase 4 live run done; clarify remaining operator steps. |
+
+---
+
 ## [2026-05-09] plan-v2 implement-from-plan (smoke script + docs)
 
 ### What shipped
