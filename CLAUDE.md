@@ -25,7 +25,7 @@ opens.
 
 ## Optimizer harness (plan-v1)
 
-- **Dedicated user + throwaway clone + local Titan LLM:** see
+- **Throwaway clone (shared login ok) + local Titan LLM:** see
   [AGENT_SERVER_SETUP.md](AGENT_SERVER_SETUP.md).
 - Config: `cuda-ioctl-map/optimizer/harness.yaml`
 - Evaluator: `python3 optimizer/evaluate.py` (from `cuda-ioctl-map/`)
