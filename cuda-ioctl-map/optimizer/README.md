@@ -8,7 +8,59 @@ optional GEPA loop over the harness YAML.
 
 - Working directory: **`cuda-ioctl-map/`** (same as `run.sh`).
 - CUDA (`nvcc`) and NVIDIA devices for capture.
-- Replay usually needs **root** or `CAP_SYS_ADMIN` for `/dev/nvidia*`.
+- Replay usually needs **root** or `CAP_SYS_ADMIN` for `/dev/nvidia*`, unless
+  your user already has access to the relevant `/dev/nvidia*` nodes (some
+  servers grant this via group membership).
+
+## Sandboxing and blast radius (agents / shared servers)
+
+The evaluator is **not** a security sandbox. It intentionally runs:
+
+- `bash run.sh` → `nvcc`, your CUDA binaries, `LD_PRELOAD` of the sniffer,
+  and `python3 replay/replay.py` (opens kernel device nodes).
+- Writes under this repo: `sniffed/`, `optimizer/runs/`, and temp harness
+  files.
+
+On a **shared server with limited permissions**, this is *usually* acceptable
+only if:
+
+- The job runs as a **dedicated user** with **no sudo**, and you accept writes
+  only inside a disposable clone of the repo (or a bind-mounted workdir).
+- You cap **wall time** (`timeout_*` in the harness) and **metric calls** for
+  GEPA so a run cannot loop forever.
+- You do **not** point GEPA at a public `api_base` without TLS and auth.
+
+For stronger isolation, run the same commands inside **Docker** or another
+container with the NVIDIA runtime, a read-only root filesystem overlay where
+possible, and **no host credentials** in the environment. The coding agent
+should treat “run optimizer” like “run arbitrary compiled CUDA + driver ioctls”
+— same trust boundary as normal development on that machine.
+
+## Local LLM on a Titan (no OpenAI / cloud API)
+
+GEPA uses **LiteLLM** for reflection. Any server that speaks the **OpenAI
+Chat Completions** API works (common choices: **vLLM**, **SGLang**, **TGI**,
+**llama.cpp** `--server` mode). Run the model server on `127.0.0.1` (or a
+private interface), pick the **served model name** from that server’s `/v1/models`
+response, then:
+
+```bash
+cd cuda-ioctl-map
+optimizer/.venv/bin/python optimizer/gepa_runner.py \
+  --seed optimizer/harness.yaml \
+  --max-metric-calls 15 \
+  --reflection-model 'openai/<served-model-id>' \
+  --api-base 'http://127.0.0.1:8000/v1' \
+  --api-key 'EMPTY'
+```
+
+Use the real model id your stack exposes (LiteLLM expects the `openai/…`
+prefix when using `OPENAI_API_BASE`). If your server ignores API keys, a
+placeholder `--api-key` value is still fine for LiteLLM.
+
+**Note:** one Titan can host the **LLM server** while another is used for CUDA
+capture/replay, or you time-share; both are heavy — budget GPU memory
+accordingly.
 
 ## Python dependencies
 

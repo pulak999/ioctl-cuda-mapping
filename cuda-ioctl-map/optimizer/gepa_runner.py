@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
 import sys
 import tempfile
 from pathlib import Path
@@ -43,12 +44,47 @@ def main() -> None:
             "keeping lists short and realistic. Output only valid YAML."
         ),
     )
+    ap.add_argument(
+        "--reflection-model",
+        default=None,
+        metavar="MODEL",
+        help=(
+            "LiteLLM model id for GEPA reflection (e.g. openai/gpt-4o-mini, or "
+            "openai/<name> when using --api-base with vLLM / SGLang OpenAI "
+            "compatibility). If omitted, GEPA's default reflection model is used."
+        ),
+    )
+    ap.add_argument(
+        "--api-base",
+        default=None,
+        metavar="URL",
+        help=(
+            "OpenAI-compatible API base URL for LiteLLM (e.g. "
+            "http://127.0.0.1:8000/v1 for vLLM). Sets OPENAI_API_BASE before "
+            "optimization."
+        ),
+    )
+    ap.add_argument(
+        "--api-key",
+        default=None,
+        metavar="KEY",
+        help=(
+            "API key for the reflection provider. For local servers that do not "
+            "check keys, pass any placeholder. Sets OPENAI_API_KEY if set."
+        ),
+    )
     args = ap.parse_args()
+
+    if args.api_base:
+        os.environ["OPENAI_API_BASE"] = args.api_base.rstrip("/")
+    if args.api_key is not None:
+        os.environ["OPENAI_API_KEY"] = args.api_key
 
     try:
         from gepa.optimize_anything import (  # type: ignore
             GEPAConfig,
             EngineConfig,
+            ReflectionConfig,
             optimize_anything,
         )
     except ImportError as e:
@@ -87,11 +123,25 @@ def main() -> None:
             score = min(score, -0.5)
         return score, {"metrics": metrics}
 
+    reflection = (
+        ReflectionConfig(reflection_lm=args.reflection_model)
+        if args.reflection_model
+        else None
+    )
+    cfg = (
+        GEPAConfig(
+            engine=EngineConfig(max_metric_calls=args.max_metric_calls),
+            reflection=reflection,
+        )
+        if reflection is not None
+        else GEPAConfig(engine=EngineConfig(max_metric_calls=args.max_metric_calls))
+    )
+
     result = optimize_anything(
         seed_candidate=seed_text,
         evaluator=evaluator,
         objective=args.objective,
-        config=GEPAConfig(engine=EngineConfig(max_metric_calls=args.max_metric_calls)),
+        config=cfg,
     )
 
     best = getattr(result, "best_candidate", None)
