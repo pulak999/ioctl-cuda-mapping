@@ -30,6 +30,12 @@ cd cuda-ioctl-map
 bash run.sh programs/matmul.cu
 ```
 
+### Optimizer harness (plan-v1)
+
+For the live evaluator and optional GEPA loop over `harness.yaml`, see
+[cuda-ioctl-map/optimizer/README.md](cuda-ioctl-map/optimizer/README.md) and
+[plan-v1.md](plan-v1.md).
+
 That single command does three things:
 
 1. **Compile** — `nvcc` builds the binary

@@ -1,0 +1,3 @@
+# Optimizer harness (plan-v1)
+gepa
+PyYAML>=6.0

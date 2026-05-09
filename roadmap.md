@@ -40,7 +40,7 @@ This is why the repo generalises. Everything below supports this one idea.
 
 ```
    ┌──────────────────────────────────────────────────────────────┐
-   │                      harness / agent                         │
+   │              harness / optimizer / agent                     │
    │                                                              │
    │   pick a program  ──►  run under sniffer  ──►  trace         │
    │         ▲                                        │           │
@@ -61,10 +61,14 @@ This is why the repo generalises. Everything below supports this one idea.
    │         ▼                                                    │
    │    escalate: ask a human (or an LLM)                         │
    │    to resolve → feed decision back into inference priors     │
+   │         │                                                    │
+   │         ▼                                                    │
+   │    optimizer sees diagnostic feedback and proposes           │
+   │    the next experiment / heuristic / codegen prompt          │
    └──────────────────────────────────────────────────────────────┘
 ```
 
-### The four drivers inside the harness
+### The five drivers inside the harness
 
 1. **Corpus driver.** A program picker — starts with the CUDA ladder
    (null kernel → one malloc → one memcpy → one launch…). Each rung adds
@@ -96,6 +100,52 @@ This is why the repo generalises. Everything below supports this one idea.
    before a size is probably a flags word." Its output is a **prior**,
    not ground truth — the next inference run either confirms it or
    overrides it.
+
+5. **Optimizer.** A GEPA-style `optimize_anything` loop treats the
+   harness configuration as a text artifact: corpus schedule, mutation
+   policy, inference heuristics, confidence thresholds, prompt templates
+   for escalation, and eventually codegen templates. The evaluator is the
+   real system: capture traces, infer a spec, replay old and new traces,
+   compare against handwritten baselines, and report a multi-objective
+   score plus diagnostic feedback. This makes the LLM search targeted:
+   it sees why a candidate failed instead of just seeing "score went
+   down."
+
+### How GEPA fits
+
+GEPA / `optimize_anything` should not replace the deterministic core of
+the project. The sniffer still records bytes, the inference engine still
+emits explicit fields with confidence scores, and replay still validates
+the resulting spec. GEPA sits **outside** that loop as an experiment
+orchestrator and heuristic optimizer.
+
+The artifact GEPA optimizes is text:
+- `harness.yaml`: which programs to run, how many repetitions, what
+  parameters to mutate, and what budget to spend per phase.
+- `infer/heuristics/*.yaml` or Python snippets: thresholds and ordering
+  for handle, pointer, fd, size, and output-region classifiers.
+- `prompts/*.md`: escalation prompts that turn low-confidence fields into
+  proposed semantic annotations.
+- Later, `codegen/*.jinja`: templates for guest stubs and host daemons.
+
+The evaluator returns both scores and **Actionable Side Information
+(ASI)**. For this repo, ASI is not vague prose; it is exactly the data an
+engineer would inspect:
+- replay failures with ioctl sequence number, request code, errno, and
+  before/after buffer diff;
+- spec diffs against the previous candidate and against the handwritten
+  `handle_offsets.json` baseline;
+- per-field confidence histograms and examples of ambiguous byte ranges;
+- coverage by program, device path, ioctl code, and field kind;
+- generated stub/daemon compile errors once codegen exists.
+
+GEPA's Pareto frontier is a good fit because there is no single scalar
+that captures progress. A candidate that improves pointer classification
+but slightly hurts handle recall should survive long enough to be merged
+with a candidate that does the opposite. The frontier should track metrics
+such as replay success, handle-offset agreement, field coverage, false
+positive rate, trace generalization, generated-code compile success, and
+runtime overhead.
 
 ### Why this framing matters for the research story
 
@@ -189,6 +239,11 @@ new accelerators.
 │                                  ▼                                         │
 │                    spec/<driver>.spec.json                                 │
 │                    (machine-readable per-ioctl schema)                     │
+│                                  │                                         │
+│                                  ▲                                         │
+│              optimizer / evaluator loop                                    │
+│              (GEPA-style: propose next corpus,                             │
+│               heuristic, prompt, or template)                              │
 │                                  │                                         │
 │         ┌────────────────────────┼────────────────────────┐                │
 │         ▼                        ▼                        ▼                │
@@ -319,6 +374,46 @@ Only possible because every field is classified — you can't enforce
 
 ---
 
+### 6. Optimization Orchestrator (`optimizer/`) — new
+
+This is where the GEPA / `optimize_anything` idea lands.
+
+**Today:** the repo has scripts and tools, but no search loop over
+experiment choices. A human chooses which CUDA program to run, which two
+traces to diff, and how to update `handle_offsets.json`.
+
+**Target:** an optimizer invokes the existing harness and treats the
+result as an evaluator:
+
+```python
+def evaluate(candidate, example):
+    config = materialize(candidate)
+    traces = run_corpus(example.programs, config.mutations)
+    spec = infer_spec(traces, config.heuristics)
+    replay = replay_all(spec, traces)
+
+    return score(replay, spec), {
+        "replay_failures": replay.failures,
+        "spec_diff": diff_spec(spec),
+        "low_confidence_fields": spec.low_confidence_fields,
+        "coverage": coverage_report(spec, traces),
+    }
+```
+
+Use **multi-task search** first: each CUDA ladder rung is an example, and
+the candidate is a shared harness/inference configuration that should
+improve across all rungs. Use **generalization** later: train on some
+programs and driver versions, then validate on held-out programs or a
+new driver version. That is the real evidence that the harness learns
+protocol-discovery strategies rather than overfitting to one trace.
+
+**Scope creep to avoid:** do not let GEPA emit the authoritative spec
+directly. It proposes harness changes, inference heuristics, prompts, or
+templates; the checked-in spec is still produced by deterministic tools
+and accepted only after replay validation.
+
+---
+
 ## Proposed Directory Layout
 
 ```
@@ -336,9 +431,16 @@ ioctl-trace-spec/            # renamed repo
 │   └── schema.json          # meta-schema
 ├── replay/                  # generic interpreter
 │   └── replay.py
+├── optimizer/               # new — GEPA/optimize_anything evaluator loop
+│   ├── objective.md
+│   ├── harness.yaml
+│   ├── evaluate.py
+│   └── metrics.py
 ├── codegen/                 # new — emits aegis stub + daemon
 │   ├── stub.c.jinja
 │   └── daemon.c.jinja
+├── prompts/                 # escalation and semantic-label prompts
+│   └── classify_field.md
 ├── programs/                # test corpus (CUDA ladder, ROCm ladder, …)
 │   └── cuda/
 ├── traces/                  # captured JSONL
@@ -374,6 +476,18 @@ Each phase ends in a runnable repo. No big-bang rewrite.
   is either a bug or a latent error in the handwritten table —
   investigate both.
 
+### Phase 2.5 — Optimizer harness v0
+- Add `optimizer/evaluate.py` as a thin wrapper around existing commands:
+  run a corpus, infer a spec, replay traces, and return structured
+  metrics plus ASI-style diagnostics.
+- Seed it with a hand-authored `harness.yaml`; do not introduce GEPA
+  until the evaluator is deterministic and reproducible.
+- First optimized artifact: inference thresholds and corpus schedule,
+  not generated C. Keep the blast radius small.
+- **Acceptance test:** a candidate is only accepted if it improves at
+  least one tracked metric without regressing replay success on the
+  baseline CUDA ladder.
+
 ### Phase 3 — Generic replay
 - Rewrite `replay.py` as a spec interpreter.
 - Drop `handle_offsets.json` entirely once spec replay matches the old
@@ -383,17 +497,26 @@ Each phase ends in a runnable repo. No big-bang rewrite.
 - Extend inference with remaining field kinds.
 - Needed before codegen is meaningful — a stub that doesn't know which
   bytes are pointers can't flatten.
+- Switch the optimizer to multi-objective / Pareto tracking here. The
+  metrics are now naturally in tension: handle recall, pointer precision,
+  size-field coverage, replay success, and false positive rate.
 
 ### Phase 5 — Codegen
 - Implement `codegen/` templates. Target: regenerate enough of the
   aegis stub/daemon to handle the cuInit ioctl sequence automatically.
 - Diff against the handwritten aegis code. Anything that differs is
   either a codegen gap or a spec gap — again, investigate both.
+- Add generated-code compile errors and stub/daemon behavioral diffs to
+  the optimizer's ASI. Only then should GEPA be allowed to propose
+  template changes.
 
 ### Phase 6 — Second accelerator
 - Capture an AMD ROCm program (or Intel Gaudi). Run inference.
 - The quality of the spec on a driver we've never touched is the real
   test of generalisability. If it works, the trace-driven thesis holds.
+- Treat this as the first **generalization** evaluation: train/optimize
+  on NVIDIA traces, validate on the second accelerator without changing
+  core sniffer, inference, or replay logic.
 
 ### Phase 7 — Policy mediator
 - Only after codegen stabilises. Implements the security contribution
