@@ -11,6 +11,8 @@
 
 ## Next (roadmap / follow-up)
 
+- [ ] [plan-v2.md](plan-v2.md): run throwaway clone + vLLM + full GEPA reflection
+  test; append results to VALIDATION.
 - [ ] Phase 1 roadmap: generic sniffer device globs + extended JSONL fields
 - [ ] Phase 2: `infer/classify.py` + emitted `spec.json` vs handwritten offsets
 - [ ] Wire GEPA to richer candidate space (thresholds) once inference is configurable

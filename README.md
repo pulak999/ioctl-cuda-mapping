@@ -36,7 +36,8 @@ For the live evaluator and optional GEPA loop over `harness.yaml`, see
 [cuda-ioctl-map/optimizer/README.md](cuda-ioctl-map/optimizer/README.md) and
 [plan-v1.md](plan-v1.md). Latest smoke results:
 [VALIDATION.md](VALIDATION.md). **Dedicated user / local model server:**
-[AGENT_SERVER_SETUP.md](AGENT_SERVER_SETUP.md).
+[AGENT_SERVER_SETUP.md](AGENT_SERVER_SETUP.md). **End-to-end operational test
+(scratch clone + local LLM + GEPA):** [plan-v2.md](plan-v2.md).
 
 That single command does three things:
 
