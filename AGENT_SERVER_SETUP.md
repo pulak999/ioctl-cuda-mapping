@@ -143,10 +143,18 @@ Hulk (shared login, 3× NVIDIA TITAN RTX, driver 555.42.02, kernel 5.15.0-173):
 - **HF model cache** (already downloaded, no network needed):
   - `meta-llama/Llama-3.2-1B` — complete; used for GEPA reflection on this host.
   - `Qwen/Qwen2.5-7B-Instruct` — **incomplete** (xet-protocol download failed, `.incomplete` blobs only); do not use.
-- **One-time numpy fix** (only needed once per venv; `outlines` requires numpy<2):
+- **One-time venv fixes** (apply once; the venv is now fixed if you're on the same machine):
   ```bash
-  /home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/pip install "numpy<2" --quiet
+  # Fix 1: outlines 0.0.46 requires numpy<2; venv ships numpy 2.4.4
+  /home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 -m pip install "numpy<2" --quiet
+
+  # Fix 2: PyPI pyairports 0.0.1 is a squatter (no actual module); stub it
+  SITE=/home/pm3371/gitrepos/gpu-virt/vllm/.venv/lib/python3.12/site-packages
+  mkdir -p "$SITE/pyairports"
+  echo "" > "$SITE/pyairports/__init__.py"
+  echo "AIRPORT_LIST = ()" > "$SITE/pyairports/airports.py"
   ```
+  Verify: `/home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 -c "from outlines import grammars; print('OK')"`
 - **Chat template** for base models without a built-in tokenizer template:
   `cuda-ioctl-map/optimizer/scripts/llama_base_chat_template.jinja`
 

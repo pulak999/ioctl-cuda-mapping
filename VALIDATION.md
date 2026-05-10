@@ -157,3 +157,72 @@ export GEPA_MAX_METRIC_CALLS=6
 **Wall time:** ~88 s for full script (includes Phase 4 + GEPA loop).
 
 **vLLM:** N/A (`VLLM_API_BASE` unset).
+
+### Phase 3 (GEPA + local vLLM) — dev clone, 2026-05-09
+
+**Host:** shared login node, same tree; 3× NVIDIA TITAN RTX.
+
+**Commit:** `a69af43` (coding-agent-dev).
+
+**Setup (one-time fixes applied to vLLM venv before this run):**
+
+1. `numpy<2` downgrade — `outlines 0.0.46` imports `numpy.lib.function_base`
+   which was removed in numpy 2.0; venv had numpy 2.4.4.
+2. `pyairports` stub — PyPI `pyairports 0.0.1` is a namespace squatter
+   (installs a `sample` module, not `pyairports`). Created a minimal stub at
+   `vllm/.venv/lib/python3.12/site-packages/pyairports/` with empty
+   `AIRPORT_LIST`. The `outlines.types.airports` module only uses it to define
+   an `Airport` type; GEPA never triggers guided decoding so the stub suffices.
+
+**vLLM version:** 0.6.1.post1 (Python 3.12 venv at
+`/home/pm3371/gitrepos/gpu-virt/vllm/.venv/`).
+
+**Model:** `meta-llama/Llama-3.2-1B` (1B base model, dtype half, max-model-len
+8192, offline HF cache). Chat template:
+`cuda-ioctl-map/optimizer/scripts/llama_base_chat_template.jinja`.
+
+**Terminal 1 (vLLM server, GPU 0):**
+
+```bash
+export CUDA_VISIBLE_DEVICES=0
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
+/home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 \
+  -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Llama-3.2-1B \
+  --dtype half \
+  --max-model-len 8192 \
+  --host 127.0.0.1 \
+  --port 8000 \
+  --chat-template /path/to/llama_base_chat_template.jinja
+```
+
+**Terminal 2 (GEPA runner):**
+
+```bash
+cd cuda-ioctl-map
+optimizer/.venv/bin/python optimizer/gepa_runner.py \
+  --seed optimizer/harness.yaml \
+  --max-metric-calls 6 \
+  --reflection-model openai/meta-llama/Llama-3.2-1B \
+  --api-base http://127.0.0.1:8000/v1 \
+  --api-key EMPTY
+```
+
+**Result:**
+
+- **Iteration 0:** evaluator scored seed harness (`aggregate_score` ~0.778;
+  `cu_init` 230/230 succeeded baseline and candidate).
+- **Reflection (iterations 1–3):** LLM was called each iteration via
+  LiteLLM → vLLM → Llama-3.2-1B. Model responded (HTTP 200) but proposed
+  non-YAML text (garbage: GitHub URLs, prose). Each new candidate scored
+  `−1.0`; GEPA discarded and kept seed as best.
+- **`best_candidate`:** unchanged from seed YAML.
+- **Plan milestone 3 (≥1 GEPA reflection via local `--api-base`):**
+  **SATISFIED** — the reflection LLM call round-trip succeeded end-to-end.
+  Model quality (1B base, no instruct tuning) was insufficient to improve the
+  harness, but the wiring is proven. A stronger model (8B+ instruct) would
+  produce better proposals.
+
+**Wall time:** ~90 s for 6 metric-call budget (each call runs full live
+evaluate: capture + infer + replay).
