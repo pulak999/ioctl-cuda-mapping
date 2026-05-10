@@ -19,11 +19,14 @@
 - [x] **Phase 4 (live evaluate)** on dev clone: full `smoke_plan_v2.sh` without
       `SKIP_LIVE` — PASS; see [VALIDATION.md](VALIDATION.md) “Phase 4 (live
       evaluate)”.
-- [ ] **On your GPU host (or here when you want full plan-v2):** Phases 1–2
-      (scratch clone + vLLM), Phase 3 (**local** `VLLM_API_BASE` +
-      `GEPA_REFLECTION_MODEL` — strict plan-v2 milestone), optional Phase 4 repeat
-      in throwaway clone, Phase 5 row with vLLM version + reflection yes/no,
-      Phase 6 (remove scratch clone).
+- [x] **Phase 3 (local vLLM + GEPA reflection) — 2026-05-09:** vLLM 0.6.1.post1
+      + `meta-llama/Llama-3.2-1B`, `--api-base http://127.0.0.1:8000/v1`; 3
+      reflection iterations completed end-to-end (HTTP 200 from LLM each time).
+      Model quality insufficient to improve harness (1B base), but wiring proven.
+      See [VALIDATION.md](VALIDATION.md) "Phase 3 (GEPA + local vLLM)".
+- [ ] Optional Phase 5 follow-up: repeat Phase 3 with a stronger instruct model
+      (8B+) once Qwen cache is repaired or another model is downloaded.
+- [ ] Phase 6 (scratch clone cleanup): operator step after throwaway clone run.
 - [x] **Phase 3 (Gemini path) — smoke attempt (2026-05-09):** documented in
       [VALIDATION.md](VALIDATION.md); reflection blocked by Gemini **429**
       (quota), not auth wiring.

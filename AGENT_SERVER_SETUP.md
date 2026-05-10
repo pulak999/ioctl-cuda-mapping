@@ -14,10 +14,12 @@ YAML—only use trusted harness files and trusted code in the clone.
 
 ## 0. Two ways to isolate (pick what your server allows)
 
-| Approach | When to use |
-|----------|----------------|
+
+| Approach                                | When to use                                                                                                                                                                |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **A. Shared account + throwaway clone** | You **cannot** create new Unix users (typical shared GPU server). Use a **fresh clone per job** under your `$HOME` so you never point the agent at your main working tree. |
-| **B. Dedicated Unix user** | An admin can `adduser` and give that user GPU access; optional, see [appendix](#appendix-optional-dedicated-unix-user). |
+| **B. Dedicated Unix user**              | An admin can `adduser` and give that user GPU access; optional, see [appendix](#appendix-optional-dedicated-unix-user).                                                    |
+
 
 Everything below assumes **A** unless you explicitly use **B**.
 
@@ -47,10 +49,10 @@ tokens in `.env`.
 
 Replay opens `/dev/nvidiactl`, `/dev/nvidia*`, `/dev/nvidia-uvm` with `O_RDWR`.
 
-- On many servers your login is already in **`video`** / **`render`** and
-  replay works **without** root (same as your successful non-sudo validation).
+- On many servers your login is already in `**video`** / `**render**` and
+replay works **without** root (same as your successful non-sudo validation).
 - If you get `Permission denied`, only a **host admin** can fix udev/groups—you
-  cannot solve that from user space without elevated rights.
+cannot solve that from user space without elevated rights.
 
 Check:
 
@@ -91,11 +93,13 @@ has room for KV cache.
 
 ### Model suggestions
 
-| Role | Suggestion | Notes |
-|------|------------|--------|
-| **Primary** | **Meta-Llama-3.1-8B-Instruct** | Strong instruction following; comfortable on 24 GB. |
-| **Faster** | **Qwen2.5-7B-Instruct** or **Mistral-7B-Instruct-v0.3** | Lower latency. |
-| **Heavier** | **Qwen2.5-14B-Instruct** | Tighter VRAM—shorten `--max-model-len`, low concurrency. |
+
+| Role        | Suggestion                                              | Notes                                                    |
+| ----------- | ------------------------------------------------------- | -------------------------------------------------------- |
+| **Primary** | **Meta-Llama-3.1-8B-Instruct**                          | Strong instruction following; comfortable on 24 GB.      |
+| **Faster**  | **Qwen2.5-7B-Instruct** or **Mistral-7B-Instruct-v0.3** | Lower latency.                                           |
+| **Heavier** | **Qwen2.5-14B-Instruct**                                | Tighter VRAM—shorten `--max-model-len`, low concurrency. |
+
 
 ### Example: vLLM on `127.0.0.1` (separate shell)
 
@@ -127,30 +131,47 @@ optimizer/.venv/bin/python optimizer/gepa_runner.py \
   --api-key 'EMPTY'
 ```
 
-Match `--reflection-model` to the **`id`** from `/v1/models`.
+Match `--reflection-model` to the `**id**` from `/v1/models`.
 
 ### 4a-hulk. Known working configuration on this host
 
 Hulk (shared login, 3× NVIDIA TITAN RTX, driver 555.42.02, kernel 5.15.0-173):
 
-- **`/dev/nvidia*` permissions:** `crw-rw-rw-` — no special group required; any user can replay.
-- **vLLM venv:** `/home/pm3371/gitrepos/gpu-virt/vllm/.venv/` (Python 3.12).
+- `/dev/nvidia*` permissions: `crw-rw-rw-` — no special group required; any user can replay.
+- **vLLM venv:** `/home/pm3371/gitrepos/gpu-virt/vllm/.venv/` (Python 3.12, vLLM 0.6.1.post1).
   The `vllm` binary has a stale shebang; use the module form instead.
-- **Cached HF models** (already downloaded, no network needed):
-  - `Qwen/Qwen2.5-7B-Instruct` — recommended for GEPA reflection (7B, fast, good instruction following)
-  - `meta-llama/Llama-3.2-1B` — too small for useful reflection; skip for GEPA
+- **HF model cache** (already downloaded, no network needed):
+  - `meta-llama/Llama-3.2-1B` — complete; used for GEPA reflection on this host.
+  - `Qwen/Qwen2.5-7B-Instruct` — **incomplete** (xet-protocol download failed, `.incomplete` blobs only); do not use.
+- **One-time venv fixes** (apply once; the venv is now fixed if you're on the same machine):
+  ```bash
+  # Fix 1: outlines 0.0.46 requires numpy<2; venv ships numpy 2.4.4
+  /home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 -m pip install "numpy<2" --quiet
+
+  # Fix 2: PyPI pyairports 0.0.1 is a squatter (no actual module); stub it
+  SITE=/home/pm3371/gitrepos/gpu-virt/vllm/.venv/lib/python3.12/site-packages
+  mkdir -p "$SITE/pyairports"
+  echo "" > "$SITE/pyairports/__init__.py"
+  echo "AIRPORT_LIST = ()" > "$SITE/pyairports/airports.py"
+  ```
+  Verify: `/home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 -c "from outlines import grammars; print('OK')"`
+- **Chat template** for base models without a built-in tokenizer template:
+  `cuda-ioctl-map/optimizer/scripts/llama_base_chat_template.jinja`
 
 **Start vLLM on GPU 0 (separate terminal, from anywhere):**
 
 ```bash
 export CUDA_VISIBLE_DEVICES=0
+export HF_HUB_OFFLINE=1
+export TRANSFORMERS_OFFLINE=1
 /home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 \
   -m vllm.entrypoints.openai.api_server \
-  --model Qwen/Qwen2.5-7B-Instruct \
-  --dtype auto \
+  --model meta-llama/Llama-3.2-1B \
+  --dtype half \
   --max-model-len 8192 \
   --host 127.0.0.1 \
-  --port 8000
+  --port 8000 \
+  --chat-template /home/pm3371/gitrepos/gpu-virt/ioctl-cuda-mapping/cuda-ioctl-map/optimizer/scripts/llama_base_chat_template.jinja
 ```
 
 Wait for `"Started server process"` / `"Application startup complete"` in the logs.
@@ -163,7 +184,7 @@ export CUDA_VISIBLE_DEVICES=1   # optional: isolate CUDA capture/replay
 cd /home/pm3371/gitrepos/gpu-virt/ioctl-cuda-mapping/cuda-ioctl-map
 export OPT_PY="$PWD/optimizer/.venv/bin/python"
 export VLLM_API_BASE="http://127.0.0.1:8000/v1"
-export GEPA_REFLECTION_MODEL="openai/Qwen/Qwen2.5-7B-Instruct"
+export GEPA_REFLECTION_MODEL="openai/meta-llama/Llama-3.2-1B"
 export GEPA_MAX_METRIC_CALLS=8
 ./optimizer/scripts/smoke_plan_v2.sh
 ```
@@ -197,7 +218,7 @@ optimizer/.venv/bin/python optimizer/gepa_runner.py \
   --reflection-model 'gemini/gemini-2.0-flash'
 ```
 
-Use a **`gemini/`** model prefix so LiteLLM uses **AI Studio** (`GEMINI_API_KEY`),
+Use a `**gemini/**` model prefix so LiteLLM uses **AI Studio** (`GEMINI_API_KEY`),
 not Vertex. Omit `--api-base` / `--api-key` for this path.
 
 **Full smoke with Gemini Phase 3** (after Phase 4 live evaluate):
@@ -230,12 +251,14 @@ container layer.
 
 ## 6. Resource and safety caps
 
-| Knob | Where | Purpose |
-|------|--------|---------|
-| Wall time | `harness.yaml` → `timeout_capture_sec`, `timeout_replay_sec` | Stop hung nvcc or replay. |
-| GEPA budget | `gepa_runner.py` → `--max-metric-calls` | Each call runs full live evaluator. |
-| LLM server | vLLM limits / GPU split | Avoid starving capture/replay. |
-| Network | LLM on `127.0.0.1` only | No public exposure of reflection API. |
+
+| Knob        | Where                                                        | Purpose                               |
+| ----------- | ------------------------------------------------------------ | ------------------------------------- |
+| Wall time   | `harness.yaml` → `timeout_capture_sec`, `timeout_replay_sec` | Stop hung nvcc or replay.             |
+| GEPA budget | `gepa_runner.py` → `--max-metric-calls`                      | Each call runs full live evaluator.   |
+| LLM server  | vLLM limits / GPU split                                      | Avoid starving capture/replay.        |
+| Network     | LLM on `127.0.0.1` only                                      | No public exposure of reflection API. |
+
 
 ---
 
@@ -251,12 +274,12 @@ Rotate clones per job for a clean `sniffed/` and `optimizer/runs/`.
 
 ## 8. Checklist (shared account)
 
-- [ ] Job uses a **new** `work-*` clone under `$HOME/ioctl-agent-scratch` (or similar), not your main repo.
-- [ ] `groups` allows NVIDIA device access, or you accept replay will fail until an admin fixes it.
-- [ ] `optimizer/.venv` installed; `evaluate.py --dry-run` passes.
-- [ ] vLLM (or equivalent) on `127.0.0.1`; `gepa_runner` `--reflection-model` matches `/v1/models`.
-- [ ] Harness `programs:` list is trusted; timeouts and `--max-metric-calls` are conservative.
-- [ ] After the job, **delete** the `work-*` directory (or archive logs first).
+- Job uses a **new** `work-`* clone under `$HOME/ioctl-agent-scratch` (or similar), not your main repo.
+- `groups` allows NVIDIA device access, or you accept replay will fail until an admin fixes it.
+- `optimizer/.venv` installed; `evaluate.py --dry-run` passes.
+- vLLM (or equivalent) on `127.0.0.1`; `gepa_runner` `--reflection-model` matches `/v1/models`.
+- Harness `programs:` list is trusted; timeouts and `--max-metric-calls` are conservative.
+- After the job, **delete** the `work-`* directory (or archive logs first).
 
 ---
 
