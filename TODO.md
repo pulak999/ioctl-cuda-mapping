@@ -20,9 +20,13 @@
       `SKIP_LIVE` — PASS; see [VALIDATION.md](VALIDATION.md) “Phase 4 (live
       evaluate)”.
 - [ ] **On your GPU host (or here when you want full plan-v2):** Phases 1–2
-      (scratch clone + vLLM), Phase 3 (GEPA reflection with local
-      `--api-base`), optional Phase 4 repeat in throwaway clone, Phase 5 row
-      with vLLM version + reflection yes/no, Phase 6 (remove scratch clone).
+      (scratch clone + vLLM), Phase 3 (**local** `VLLM_API_BASE` +
+      `GEPA_REFLECTION_MODEL` — strict plan-v2 milestone), optional Phase 4 repeat
+      in throwaway clone, Phase 5 row with vLLM version + reflection yes/no,
+      Phase 6 (remove scratch clone).
+- [x] **Phase 3 (Gemini path) — smoke attempt (2026-05-09):** documented in
+      [VALIDATION.md](VALIDATION.md); reflection blocked by Gemini **429**
+      (quota), not auth wiring.
 - [ ] Phase 1 roadmap: generic sniffer device globs + extended JSONL fields
 - [ ] Phase 2: `infer/classify.py` + emitted `spec.json` vs handwritten offsets
 - [ ] Wire GEPA to richer candidate space (thresholds) once inference is configurable

@@ -1,3 +1,21 @@
+## [2026-05-09] plan-v2 — GEPA + Gemini smoke (Phase 4 + Phase 3 attempt)
+
+### What ran
+
+- `cuda-ioctl-map/`: full `smoke_plan_v2.sh` with `OPT_PY=optimizer/.venv/bin/python`,
+  `GEPA_USE_GEMINI=1`, `GEPA_MAX_METRIC_CALLS=6`.
+- Phase 4: both harnesses `"ok": true`. Phase 3: GEPA iteration 0 scored seed;
+  reflective steps failed on Gemini API **429** (free-tier quota).
+
+### Files changed
+
+| File | What changed |
+|------|-------------|
+| [VALIDATION.md](VALIDATION.md) | New subsection “Phase 3 (GEPA + Gemini)”. |
+| [TODO.md](TODO.md) | Clarify strict plan-v2 local vLLM vs Gemini attempt done. |
+
+---
+
 ## [2026-05-09] plan-v2 — GitHub Actions Phase 0 smoke
 
 ### What shipped

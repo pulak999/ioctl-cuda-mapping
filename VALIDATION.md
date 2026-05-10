@@ -117,3 +117,43 @@ cd cuda-ioctl-map
 
 **Phases 2–3:** not run (`VLLM_API_BASE` unset); vLLM version N/A. **GEPA
 reflection:** not exercised in this run.
+
+### Phase 3 (GEPA + Gemini) — dev clone, 2026-05-09
+
+**Host:** same as Phase 4 above (shared login, Titan RTX, groups `student`,
+`rcs`). **Not** a throwaway under `$HOME/ioctl-agent-scratch` (plan Phase 1
+still optional here).
+
+**Commit:** `933f3f37fae0069c30c26b5c0eccd6de6229ec29`.
+
+**Command:**
+
+```bash
+cd cuda-ioctl-map
+export OPT_PY="$PWD/optimizer/.venv/bin/python"
+export GEPA_USE_GEMINI=1
+export GEPA_MAX_METRIC_CALLS=6
+./optimizer/scripts/smoke_plan_v2.sh
+```
+
+**Key file:** API key loaded from default path
+`gpu-virt/gemini-key.txt` (see script header); key value not logged.
+
+**Phase 4 (within same run):** **PASS** — both harnesses again reported
+`"ok": true` (`cu_init` 230/230; `cu_mem_alloc` 781/781 baseline/candidate).
+
+**Phase 3 GEPA (Gemini `gemini/gemini-2.0-flash`):**
+
+- **Iteration 0:** evaluator scored seed harness (`aggregate_score` ~0.78 in
+  GEPA logs).
+- **Reflection:** every reflective-mutation step failed with
+  `litellm.RateLimitError` / Gemini **HTTP 429** (`RESOURCE_EXHAUSTED`, free-tier
+  quota for `gemini-2.0-flash`). No LLM-proposed candidate; `best_candidate` in
+  JSON output matched the seed YAML.
+- **Plan milestone 3 (local `--api-base`):** still **not** satisfied — use
+  vLLM per [plan-v2.md](plan-v2.md) Phase 2–3, or restore Gemini billing/quota
+  and retry.
+
+**Wall time:** ~88 s for full script (includes Phase 4 + GEPA loop).
+
+**vLLM:** N/A (`VLLM_API_BASE` unset).
