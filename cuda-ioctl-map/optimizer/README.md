@@ -62,6 +62,25 @@ placeholder `--api-key` value is still fine for LiteLLM.
 capture/replay, or you time-share; both are heavy — budget GPU memory
 accordingly.
 
+## Gemini (cloud reflection, no local weights)
+
+LiteLLM also supports **Google AI Studio** (`gemini/…` models + `GEMINI_API_KEY`).
+Use this when you cannot host vLLM (e.g. NFS quota, VRAM). Do **not** commit API
+keys; keep a one-line key file **outside** tracked paths or export
+`GEMINI_API_KEY` in your shell.
+
+```bash
+cd cuda-ioctl-map
+export GEMINI_API_KEY="…"   # from https://aistudio.google.com/app/apikey
+
+optimizer/.venv/bin/python optimizer/gepa_runner.py \
+  --seed optimizer/harness.yaml \
+  --max-metric-calls 12 \
+  --reflection-model 'gemini/gemini-2.0-flash'
+```
+
+See [AGENT_SERVER_SETUP.md](../AGENT_SERVER_SETUP.md) section **4b. Gemini** for the default `gpu-virt/gemini-key.txt` layout and `GEPA_USE_GEMINI=1` smoke integration.
+
 ## Python dependencies
 
 With **pip** (if available on your Python):

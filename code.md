@@ -150,3 +150,43 @@ Titan); the repo cannot start that server for you from CI without GPU runners.
 | Optional CI (unittest + Phase 0 headless) | `.github/workflows/optimizer-plan-v2-phase0.yml` runs `SKIP_LIVE=1` smoke on `main` / `coding-agent-dev`. |
 
 **Terminal summary:** HEAD advanced to `5438bb4` with validation/docs only; no code path changes. CI workflow for `SKIP_LIVE=1` smoke was the next repo-side follow-up from plan-v2 optional §3 — implemented in commit `183b6d3` (`.github/workflows/optimizer-plan-v2-phase0.yml`).
+
+---
+
+## Code Review — commit 81d1353f0abf133342c937ac44109661834aa099 (2026-05-09)
+
+### Delta since `5438bb4` (3 commits: CI workflow + Gemini docs + SESSION-LOG)
+
+**Changed files:** `.github/workflows/optimizer-plan-v2-phase0.yml` (added), `VALIDATION.md` (Gemini 429 section), `TODO.md` (Gemini attempt checked off), `SESSION-LOG.md` (new).
+
+### Phase 1–3 (delta)
+
+- **No executable code changes** — optimizer, evaluator, GEPA runner, metrics, and smoke script are all unchanged.
+- **CI workflow confirmed green** on commit `933f3f3` (run against `pulak999/gopher`); `SKIP_LIVE=1` smoke (unittest + dry-run) passes on Ubuntu without GPU.
+- **VALIDATION.md** now records Gemini GEPA attempt with HTTP 429 (`RESOURCE_EXHAUSTED`); no reflection step succeeded; `best_candidate` stayed seed YAML; milestone 3 still unmet per plan-v2.
+- **SESSION-LOG.md** added as pick-up-later index; points to VALIDATION.md and TODO.md for canonical detail.
+- **Risk:** None. All changes are additive documentation.
+
+### Plan cross-reference (`plan-v2.md`) at HEAD
+
+| plan-v2 milestone | Status at HEAD | Gap |
+|-------------------|----------------|-----|
+| 1. Throwaway clone + venv | Operator-only | No repo change possible — script, docs, and uv install instructions exist |
+| 2. vLLM serves `/v1` | Operator-only | Script wires curl check when `VLLM_API_BASE` set; cannot start server from in-repo |
+| 3. ≥1 GEPA reflection via local `--api-base` | **Not met** | Gemini path tried, hit 429; vLLM path not attempted yet |
+| 4. `evaluate.py` both harnesses PASS | **Done + logged** | VALIDATION.md Phase 4 row at `ecfc683` |
+| 5. Results in VALIDATION.md | **Partial** | Phase 4 + Gemini logged; vLLM reflection row outstanding |
+| 6. Scratch clone cleanup | Operator-only | — |
+
+**Conclusion:** All in-repo automation for plan-v2 is complete (smoke script, CI workflow, wiring for both vLLM and Gemini paths). The only remaining plan milestones require operator action: running a vLLM server (or equivalent) and then appending the final VALIDATION.md row. Optional follow-up: merge `coding-agent-dev` → `main` once milestone 3 is satisfied.
+
+### Cross-reference: what can be implemented in this session
+
+| Item | Can implement now? | Notes |
+|------|--------------------|-------|
+| Start vLLM server | **No** — needs GPU shell | Titan RTX available on host; operator must run `vllm serve …` |
+| Run GEPA reflection via vLLM | **No** — needs server | Once `VLLM_API_BASE` is set, `smoke_plan_v2.sh` handles it |
+| Append VALIDATION.md vLLM row | **No** — needs live data | Write after reflection run completes |
+| Merge `coding-agent-dev` → `main` | **Yes** — git only | Only if user confirms live validation is acceptable |
+| Phase 1 / Phase 6 (scratch clone) | **No** — operator-only | No in-repo change needed |
+| Improve error handling / robustness in scripts | **Possible** | Only if user identifies specific gaps |

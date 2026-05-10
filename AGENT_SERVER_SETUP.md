@@ -2,8 +2,8 @@
 
 Goal: run `optimizer/evaluate.py` and `optimizer/gepa_runner.py` with **no
 sudo**, from a **throwaway git clone** (or a dedicated directory under your
-account), using a **self-hosted** chat model on a Titan for GEPA
-reflection—no cloud API keys.
+account), using either a **self-hosted** chat model on a Titan for GEPA
+reflection or an optional **Gemini** API key (see §4b)—never commit keys.
 
 This matches the trust model in
 [cuda-ioctl-map/optimizer/README.md](cuda-ioctl-map/optimizer/README.md):
@@ -128,6 +128,93 @@ optimizer/.venv/bin/python optimizer/gepa_runner.py \
 ```
 
 Match `--reflection-model` to the **`id`** from `/v1/models`.
+
+### 4a-hulk. Known working configuration on this host
+
+Hulk (shared login, 3× NVIDIA TITAN RTX, driver 555.42.02, kernel 5.15.0-173):
+
+- **`/dev/nvidia*` permissions:** `crw-rw-rw-` — no special group required; any user can replay.
+- **vLLM venv:** `/home/pm3371/gitrepos/gpu-virt/vllm/.venv/` (Python 3.12).
+  The `vllm` binary has a stale shebang; use the module form instead.
+- **Cached HF models** (already downloaded, no network needed):
+  - `Qwen/Qwen2.5-7B-Instruct` — recommended for GEPA reflection (7B, fast, good instruction following)
+  - `meta-llama/Llama-3.2-1B` — too small for useful reflection; skip for GEPA
+
+**Start vLLM on GPU 0 (separate terminal, from anywhere):**
+
+```bash
+export CUDA_VISIBLE_DEVICES=0
+/home/pm3371/gitrepos/gpu-virt/vllm/.venv/bin/python3 \
+  -m vllm.entrypoints.openai.api_server \
+  --model Qwen/Qwen2.5-7B-Instruct \
+  --dtype auto \
+  --max-model-len 8192 \
+  --host 127.0.0.1 \
+  --port 8000
+```
+
+Wait for `"Started server process"` / `"Application startup complete"` in the logs.
+Confirm: `curl -s http://127.0.0.1:8000/v1/models | python3 -m json.tool`
+
+**Run full smoke (GPU 1 for CUDA, GPU 0 for LLM) — from `cuda-ioctl-map/`:**
+
+```bash
+export CUDA_VISIBLE_DEVICES=1   # optional: isolate CUDA capture/replay
+cd /home/pm3371/gitrepos/gpu-virt/ioctl-cuda-mapping/cuda-ioctl-map
+export OPT_PY="$PWD/optimizer/.venv/bin/python"
+export VLLM_API_BASE="http://127.0.0.1:8000/v1"
+export GEPA_REFLECTION_MODEL="openai/Qwen/Qwen2.5-7B-Instruct"
+export GEPA_MAX_METRIC_CALLS=8
+./optimizer/scripts/smoke_plan_v2.sh
+```
+
+Append the vLLM version + reflection result to `VALIDATION.md` afterward.
+
+---
+
+### 4b. Gemini (optional — no local LLM, no large HF cache)
+
+If **vLLM is impractical** (disk quota, VRAM, or bf16 on Turing), GEPA can use
+**Google AI Studio** via LiteLLM’s `gemini/…` routes. Create a key in
+[Google AI Studio](https://aistudio.google.com/app/apikey), then **do not
+commit it**.
+
+**One-line key file (recommended layout):** store the raw key in
+`gpu-virt/gemini-key.txt` (sibling of the `ioctl-cuda-mapping` checkout, i.e.
+one directory above this repo’s root next to `gemini-key.txt`). That path is
+git-ignored at the repo root and auto-read by `smoke_plan_v2.sh` when
+`GEPA_USE_GEMINI=1` is set (override path with `GEMINI_KEY_FILE`).
+
+**Run GEPA with Gemini:**
+
+```bash
+cd "$HOME/ioctl-agent-scratch/work-*/gpu-virt/ioctl-cuda-mapping/cuda-ioctl-map"
+export GEMINI_API_KEY="…"   # or rely on key file + GEPA_USE_GEMINI below
+
+optimizer/.venv/bin/python optimizer/gepa_runner.py \
+  --seed optimizer/harness.yaml \
+  --max-metric-calls 12 \
+  --reflection-model 'gemini/gemini-2.0-flash'
+```
+
+Use a **`gemini/`** model prefix so LiteLLM uses **AI Studio** (`GEMINI_API_KEY`),
+not Vertex. Omit `--api-base` / `--api-key` for this path.
+
+**Full smoke with Gemini Phase 3** (after Phase 4 live evaluate):
+
+```bash
+cd cuda-ioctl-map
+GEPA_USE_GEMINI=1 ./optimizer/scripts/smoke_plan_v2.sh
+```
+
+With an explicit key path:
+
+```bash
+GEPA_USE_GEMINI=1 GEMINI_KEY_FILE=/path/to/gemini-key.txt ./optimizer/scripts/smoke_plan_v2.sh
+```
+
+Optional: `GEPA_REFLECTION_MODEL=gemini/gemini-2.5-flash-preview-05-20` if your
+quota includes that model.
 
 ---
 
