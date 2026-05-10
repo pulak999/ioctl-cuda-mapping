@@ -1,0 +1,21 @@
+# plan-v2 optional follow-up: headless Phase 0 (unittest + evaluate dry-run).
+# See cuda-ioctl-map/optimizer/scripts/smoke_plan_v2.sh and plan-v2.md.
+name: Optimizer plan-v2 Phase 0
+
+on:
+  push:
+    branches: [main, coding-agent-dev]
+  pull_request:
+    branches: [main, coding-agent-dev]
+
+defaults:
+  run:
+    working-directory: cuda-ioctl-map
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: SKIP_LIVE smoke (unittest + dry-run)
+        run: SKIP_LIVE=1 ./optimizer/scripts/smoke_plan_v2.sh

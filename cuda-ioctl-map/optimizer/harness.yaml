@@ -1,0 +1,16 @@
+# Optimizer harness — paths are relative to cuda-ioctl-map/
+#
+# Live mode runs: capture ×2 → find_handle_offsets → replay (baseline vs candidate).
+
+programs:
+  - programs/cu_init.cu
+
+baseline_offsets: intercept/handle_offsets.json
+runs_dir: optimizer/runs
+
+timeout_capture_sec: 600
+timeout_replay_sec: 1800
+replay_verbose: false
+
+# Candidate replay must not increase skips vs baseline replay (same trace).
+max_skip_regression: 0

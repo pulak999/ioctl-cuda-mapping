@@ -1,0 +1,56 @@
+# Architecture — ioctl-cuda-mapping
+
+## Current pipeline
+
+```mermaid
+flowchart LR
+  subgraph capture [Capture]
+    P[CUDA program] --> LD[LD_PRELOAD libnv_sniff.so]
+    LD --> J[sniffed/*.jsonl]
+  end
+  subgraph infer [Inference optional]
+    J --> F[find_handle_offsets.py]
+    F --> H[intercept/handle_offsets.json]
+  end
+  subgraph replay [Replay]
+    J --> R[replay.py]
+    H --> R
+    R --> K[kernel /dev/nvidia*]
+  end
+```
+
+## Optimizer layer (plan-v1)
+
+Sits **beside** the pipeline: it does not change how capture or replay work.
+It orchestrates repeated captures, writes candidate `handle_offsets.json`
+under `optimizer/runs/<id>/`, replays with those candidates, and emits JSON
+metrics (and optional GEPA optimization over harness YAML).
+
+```mermaid
+flowchart TD
+  HY[harness.yaml] --> EV[optimizer/evaluate.py]
+  EV --> RS[run.sh -c]
+  RS --> TR[traces in runs/]
+  TR --> FH[find_handle_offsets.py]
+  FH --> CO[candidate handle_offsets.json]
+  CO --> RP[replay.py + offsets path]
+  RP --> ME[metrics.py]
+  ME --> GR[gepa_runner.py optional]
+```
+
+## Key files
+
+| Path | Responsibility |
+|------|------------------|
+| `cuda-ioctl-map/intercept/nv_sniff.c` | Record ioctl buffers |
+| `cuda-ioctl-map/replay/replay.py` | Re-issue ioctls with patching |
+| `cuda-ioctl-map/tools/find_handle_offsets.py` | Pair traces → offset JSON |
+| `cuda-ioctl-map/optimizer/evaluate.py` | Live evaluator + metrics export |
+| `cuda-ioctl-map/optimizer/metrics.py` | Parse replay output, diff offsets |
+| `cuda-ioctl-map/optimizer/scripts/smoke_plan_v2.sh` | [plan-v2.md](plan-v2.md) Phase 0 / 4 / optional 2–3 (vLLM) or Gemini (`GEPA_USE_GEMINI`); uses `OPT_PY` vs `OPT_VENV_PY` so unittest/evaluate and GEPA can use different interpreters if needed |
+| `.github/workflows/optimizer-plan-v2-phase0.yml` | GitHub Actions: `SKIP_LIVE=1` smoke (unittest + `evaluate.py --dry-run`) on Ubuntu; no GPU |
+
+## Data artifacts
+
+- **Trace:** JSONL with `open` / `ioctl` lines (`before`/`after` hex).
+- **Offsets:** JSON map keyed by `0xXXXXXXXX` ioctl request string.

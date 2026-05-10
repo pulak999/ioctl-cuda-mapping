@@ -1,0 +1,5 @@
+# Optimizer harness (plan-v1)
+gepa>=0.1.1
+PyYAML>=6.0
+# Required by gepa.optimize_anything default reflection path (LiteLLM).
+litellm>=1.0.0
